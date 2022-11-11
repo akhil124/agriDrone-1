@@ -9,10 +9,13 @@ const RoleSelection = ({ session, data }) => {
   const [role, setRole] = useState("");
   const handleOnSubmit = async ({}) => {
     if (role != "") {
-      const res = await axios.post(`http://localhost:3000/api/user/update`, {
-        email: session.user.email,
-        role: role,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_HOST}/api/user/update`,
+        {
+          email: session.user.email,
+          role: role,
+        }
+      );
       if (res.data.success) {
         router.push(`/${role}`);
       }
