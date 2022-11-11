@@ -14,13 +14,13 @@ export default function Home({ session, data }) {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Home Page</title>
       </Head>
 
-      {data.role ? (
-        User({ session, handleSignOut })
+      {data.message.role ? (
+        User({ session, handleSignOut, data })
       ) : (
         <RoleSelection
           handleSignOut={handleSignOut}
@@ -50,7 +50,7 @@ export default function Home({ session, data }) {
 // }
 
 // Authorize User
-function User({ session, handleSignOut }) {
+function User({ session, handleSignOut, data }) {
   return (
     <main className="container mx-auto text-center py-20">
       <h3 className="text-4xl font-bold">Authorize User Homepage</h3>
@@ -58,6 +58,7 @@ function User({ session, handleSignOut }) {
       <div className="details">
         <h5>{session.user.name}</h5>
         <h5>{session.user.email}</h5>
+        <h5>{data.message.role}</h5>
       </div>
 
       <div className="flex justify-center">
@@ -95,7 +96,7 @@ export async function getServerSideProps({ req }) {
       `${process.env.HOST}api/user?email=${session.user.email}`
     );
     const data = await res.json();
-
+    console.log(data, "DATASSS");
     return {
       props: { session, data },
     };

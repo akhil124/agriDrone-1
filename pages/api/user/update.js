@@ -8,7 +8,6 @@ export default async function handler(req, res) {
   if (method === "POST") {
     await connectMongo();
     try {
-      console.log(email, role);
       const user = await Users.findOneAndUpdate(
         { email: email },
         { role: role },

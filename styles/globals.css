@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+:root {
+  --primary: #1a3447;
+}
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* > *{
-  font-family: 'Poppins', sans-serif;
+* > * {
+  font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -15,4 +18,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.primary {
+  color: #1a3447;
 }
