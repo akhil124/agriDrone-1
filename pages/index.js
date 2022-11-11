@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { useState } from "react";
+import RoleSelection from "../components/RoleSelection";
 import { getSession, useSession, signOut } from "next-auth/react";
 
 export default function Home({ session, data }) {
@@ -18,27 +19,35 @@ export default function Home({ session, data }) {
         <title>Home Page</title>
       </Head>
 
-      {session ? User({ session, handleSignOut }) : Guest()}
+      {data.role ? (
+        User({ session, handleSignOut })
+      ) : (
+        <RoleSelection
+          handleSignOut={handleSignOut}
+          session={session}
+          data={data}
+        />
+      )}
     </div>
   );
 }
 
 // Guest
-function Guest() {
-  return (
-    <main className="container mx-auto text-center py-20">
-      <h3 className="text-4xl font-bold">Guest Homepage</h3>
+// function Guest() {
+//   return (
+//     <main className="container mx-auto text-center py-20">
+//       <h3 className="text-4xl font-bold">Guest Homepage</h3>
 
-      <div className="flex justify-center">
-        <Link href={"/login"}>
-          <a className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50">
-            Sign In
-          </a>
-        </Link>
-      </div>
-    </main>
-  );
-}
+//       <div className="flex justify-center">
+//         <Link href={"/login"}>
+//           <a className="mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50">
+//             Sign In
+//           </a>
+//         </Link>
+//       </div>
+//     </main>
+//   );
+// }
 
 // Authorize User
 function User({ session, handleSignOut }) {
