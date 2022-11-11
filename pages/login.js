@@ -5,7 +5,7 @@ import styles from "../styles/Form.module.css";
 import Image from "next/image";
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from "react";
-import { signIn, signOut } from "next-auth/react";
+import { getSession, useSession, signOut, signIn } from "next-auth/react";
 import { useFormik } from "formik";
 import login_validate from "../lib/validate";
 import { useRouter } from "next/router";
@@ -134,4 +134,21 @@ export default function Login() {
       </section>
     </Layout>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }
