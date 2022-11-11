@@ -23,9 +23,8 @@ const RoleSelection = ({ session, data }) => {
   };
   return (
     <Layout>
-      <Navbar />
-      <div className="w-4/5 m-auto max-w-6xl">
-        <h2 className="text-3xl font-semibold primary mt-8">
+      <div className="">
+        <h2 className="text-3xl font-semibold primary">
           Welcome! Let's finish your registration
         </h2>
         <div className="flex items-center flex-col mt-10">
