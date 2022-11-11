@@ -2,10 +2,12 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectMongo from "../../../database/conn";
+import clientPromise from "../../../lib/mongodb";
 import Users from "../../../model/Schema";
 import { compare } from "bcryptjs";
-
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 export default NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     // Google Provider
     GoogleProvider({

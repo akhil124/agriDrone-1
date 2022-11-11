@@ -93,7 +93,7 @@ export default function Login() {
             <input
               type={`${show ? "text" : "password"}`}
               name="password"
-              placeholder="password"
+              placeholder="Password"
               className={styles.input_text}
               {...formik.getFieldProps("password")}
             />
