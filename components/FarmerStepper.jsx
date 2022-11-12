@@ -3,6 +3,7 @@ import { FormEvent, useEffect, useState } from "react";
 import FirstStep from "../components/farmerReg/FirstStep";
 import SecondStep from "../components/farmerReg/SecondStep";
 import ThirdStep from "../components/farmerReg/ThirdStep";
+import FourthStep from "../components/farmerReg/FourthStep";
 import { useMultistepForm } from "../hooks/useMultiForm";
 import initiaalValues from "../lib/initialValues";
 import Stepper from "@mui/material/Stepper";
@@ -44,6 +45,7 @@ function FarmerStepper() {
       <FirstStep {...data} updateFields={updateFields} />,
       <SecondStep {...data} updateFields={updateFields} />,
       <ThirdStep {...data} updateFields={updateFields} />,
+      <FourthStep {...data} updateFields={updateFields} />,
     ]);
 
   async function onSubmit(e) {
@@ -79,7 +81,7 @@ function FarmerStepper() {
     setIsLoading(false);
     router.push("/");
   }
-  const labels = ["one", "two", "three"];
+  const labels = ["one", "two", "three", "four"];
   return (
     <div className="">
       <form onSubmit={onSubmit}>
