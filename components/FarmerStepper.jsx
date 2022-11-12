@@ -1,57 +1,123 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import styles from "../styles/Form.module.css";
-import { TextField, Select, MenuItem, InputLabel } from "@mui/material";
-const onSubmit = (data) => {
-  // setFormData(data);
-};
-const stepOne = (setFormData) => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
-  return (
-    <div className="mt-4">
-      <form onSubmit={handleSubmit(onSubmit(setFormData))}>
-        <div className="grid grid-cols-2 gap-8">
-          <TextField
-            required={true}
-            placeholder="Name"
-            {...register("name", { required: true })}
-          />
-          <TextField
-            required={true}
-            placeholder="Phone Number"
-            {...register("phoneNumber", { required: true })}
-          />
-          <TextField
-            required={true}
-            placeholder="Email"
-            {...register("email", { required: true })}
-          />
-          <TextField
-            required={true}
-            placeholder="Birthday"
-            {...register("birthday", { required: true })}
-          />
+import { Button } from "@mui/material";
+import { FormEvent, useEffect, useState } from "react";
+import FirstStep from "../components/farmerReg/FirstStep";
+import SecondStep from "../components/farmerReg/SecondStep";
+import ThirdStep from "../components/farmerReg/ThirdStep";
+import { useMultistepForm } from "../hooks/useMultiForm";
+import initiaalValues from "../lib/initialValues";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+const INITIAL_DATA = {
+  fullName: "",
 
-          <Select
-            defaultValue={"Man"}
-            {...register("gender", { required: true })}
+  email: "",
+  gender: "",
+  phoneNumber: "",
+  birthday: "",
+  // step 2
+  farmName: "",
+  farmAddress: "",
+  farmCity: "",
+  farmCountry: "",
+  farmZipCode: "",
+  farmLandType: "",
+  cardName: "",
+  cardNumber: "",
+  exp: "",
+  cvv: "",
+};
+
+function FarmerStepper() {
+  {
+  }
+  const [data, setData] = useState(INITIAL_DATA);
+  useEffect(() => {
+    console.log(data, "DATA");
+  }, [data]);
+  function updateFields(fields) {
+    // console.log(fields.target.value, "FIELDS");
+    setData((prev) => {
+      return { ...prev, ...fields };
+    });
+  }
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+    useMultistepForm([
+      <FirstStep {...data} updateFields={updateFields} />,
+      <SecondStep {...data} updateFields={updateFields} />,
+      <ThirdStep {...data} updateFields={updateFields} />,
+    ]);
+
+  function onSubmit(e) {
+    e.preventDefault();
+    if (!isLastStep) return next();
+    const updatedInfo = {
+      basicInfo: {
+        fullName: data.fullName,
+        email: data.email,
+        gender: data.gender,
+        birthday: data.birthday,
+        phoneNumber: data.phoneNumber,
+      },
+      farmInfo: {
+        name: data.farmName,
+        address: data.farmAddress,
+        city: data.farmCity,
+        country: data.farmCountry,
+        zipCode: data.farmZipCode,
+        farmLandType: data.farmLandType,
+      },
+      cardInfo: {
+        name: data.cardName,
+        number: data.cardNumber,
+        exp: data.exp,
+        cvv: data.cvv,
+      },
+    };
+    console.log(updatedInfo);
+  }
+  const labels = ["one", "two", "three"];
+  return (
+    <div className="">
+      <form onSubmit={onSubmit}>
+        {/* <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
+          {currentStepIndex + 1} / {steps.length}
+        </div> */}
+        <Stepper activeStep={currentStepIndex} sx={{ py: 3 }} alternativeLabel>
+          {labels.map((label) => (
+            <Step key={label}>
+              <StepLabel></StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        {step}
+        <div
+          style={{
+            marginTop: "1rem",
+            display: "flex",
+            gap: ".5rem",
+            justifyContent: "space-between",
+          }}
+        >
+          {!isFirstStep ? (
+            <Button type="button" onClick={back}>
+              Back
+            </Button>
+          ) : (
+            <div></div>
+          )}
+          <Button
+            className="bg-[color:var(--primary)]"
+            variant="contained"
+            color="primary"
+            type="submit"
           >
-            <MenuItem value={"Man"}>Man</MenuItem>
-            <MenuItem value={"Woman"}>Woman</MenuItem>
-            <MenuItem value={"Other"}>Other</MenuItem>
-          </Select>
+            {isLastStep ? "Finish" : "Next"}
+          </Button>
         </div>
       </form>
     </div>
   );
-};
-const FarmerStepper = ({ activeStep, setFormData }) => {
-  if (activeStep === 1) return stepOne(setFormData);
-  else return <div>OKAY</div>;
-};
+}
 
 export default FarmerStepper;

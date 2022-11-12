@@ -5,35 +5,36 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { AppContext } from "../Context";
 
-export default function FirstStep() {
-  const { formValues, handleChange, handleNext, variant, margin } =
-    useContext(AppContext);
-  const { fullName, email, gender, phoneNumber, birthday } = formValues;
-
-  // Check if all values are not empty and if there are some errors
-  const isError = useCallback(
-    () =>
-      Object.keys({ fullName, email, gender, phoneNumber, birthday }).some(
-        (name) =>
-          (formValues[name]?.required && !formValues[name].value) ||
-          formValues[name].error
-      ),
-    [formValues, fullName, email, gender, phoneNumber, birthday]
-  );
+export default function FirstStep({
+  fullName,
+  email,
+  gender,
+  phoneNumber,
+  birthday,
+  updateFields,
+}) {
+  const isError = () => false;
 
   return (
     <>
+      <h2 className="text-3xl text-[color:var(--primary)] font-semibold mb-4">
+        Farmer Details
+      </h2>
+      <p className="text-md font-thin text-gray-600 mb-4">
+        Fill in the data for your profile. It will only take a couple of
+        minutes.
+      </p>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
             // variant={variant}
-            margin={margin}
+            // margin={margin}
             fullWidth
             label="Full Name"
             name="fullName"
             placeholder="Your first name"
             value={fullName.value}
-            onChange={handleChange}
+            onChange={(e) => updateFields({ fullName: e.target.value })}
             error={!!fullName.error}
             helperText={fullName.error}
             required={fullName.required}
@@ -43,14 +44,14 @@ export default function FirstStep() {
         <Grid item xs={12} sm={6}>
           <TextField
             // variant={variant}
-            margin={margin}
+            // margin={margin}
             fullWidth
             label="Email"
             name="email"
             placeholder="Your email address"
             type="email"
             value={email.value}
-            onChange={handleChange}
+            onChange={(e) => updateFields({ email: e.target.value })}
             error={!!email.error}
             helperText={email.error}
             required={email.required}
@@ -59,14 +60,14 @@ export default function FirstStep() {
         <Grid item xs={12} sm={6}>
           <TextField
             // variant={variant}
-            margin={margin}
+            // margin={margin}
             fullWidth
             label="Phone Number"
             name="phoneNumber"
             placeholder="Phone Number"
             type="phone"
             value={phoneNumber.value}
-            onChange={handleChange}
+            onChange={(e) => updateFields({ phoneNumber: e.target.value })}
             error={!!phoneNumber.error}
             helperText={phoneNumber.error}
             required={phoneNumber.required}
@@ -76,7 +77,7 @@ export default function FirstStep() {
         <Grid item xs={12} sm={6}>
           <TextField
             variant="outlined"
-            margin={margin}
+            // margin={margin}
             fullWidth
             select
             SelectProps={{
@@ -86,7 +87,7 @@ export default function FirstStep() {
             placeholder="Gender"
             name="gender"
             value={gender.value}
-            onChange={handleChange}
+            onChange={(e) => updateFields({ gender: e.target.value })}
             error={!!gender.error}
             helperText={gender.error}
             required={gender.required}
@@ -100,7 +101,7 @@ export default function FirstStep() {
         <Grid item xs={12} sm={6}>
           <TextField
             // variant={variant}
-            margin={margin}
+            // margin={margin}
             fullWidth
             InputLabelProps={{
               shrink: true,
@@ -109,23 +110,23 @@ export default function FirstStep() {
             name="birthday"
             type="date"
             defaultValue={birthday?.value}
-            onChange={handleChange}
+            onChange={(e) => updateFields({ birthday: e.target.value })}
             required={birthday.required}
           />
         </Grid>
       </Grid>
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+      {/* <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           // variant="contained"
           sx={{ mt: 3, ml: 1 }}
           disabled={isError()}
           color="primary"
-          onClick={!isError() ? handleNext : () => null}
+          // onClick={!isError() ? handleNext : () => null}
         >
           Next
         </Button>
-      </Box>
+      </Box> */}
     </>
   );
 }
