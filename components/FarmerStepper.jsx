@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import styles from "../styles/Form.module.css";
 import { TextField, Select, MenuItem, InputLabel } from "@mui/material";
 const onSubmit = (data) => {
-  console.log(data, "DATA");
+  // setFormData(data);
 };
-const stepOne = () => {
+const stepOne = (setFormData) => {
   const {
     handleSubmit,
     register,
@@ -13,7 +13,7 @@ const stepOne = () => {
   } = useForm();
   return (
     <div className="mt-4">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit(setFormData))}>
         <div className="grid grid-cols-2 gap-8">
           <TextField
             required={true}
@@ -49,8 +49,8 @@ const stepOne = () => {
     </div>
   );
 };
-const FarmerStepper = ({ activeStep }) => {
-  if (activeStep === 1) return stepOne();
+const FarmerStepper = ({ activeStep, setFormData }) => {
+  if (activeStep === 1) return stepOne(setFormData);
   else return <div>OKAY</div>;
 };
 

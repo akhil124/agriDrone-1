@@ -3,6 +3,7 @@ import Layout from "../layout/navbarLayout";
 import styles from "../styles/Form.module.css";
 import { getSession } from "next-auth/react";
 import FarmerInfoForm from "../components/FarmerInfoForm";
+
 const farmer = () => {
   return (
     <Layout>
