@@ -11,24 +11,13 @@ import { AppContext } from "../Context";
 export default function SecondStep() {
   const { formValues, handleChange, handleBack, handleNext, variant, margin } =
     useContext(AppContext);
-  const {
-    farmName,
-    farmLandType,
-    farmAddress,
-    farmCity,
-    farmCountry,
-    farmZipCode,
-  } = formValues;
+  const { farmLandType } = formValues;
 
   const isError = useCallback(
     () =>
       Object.keys({
         farmName,
         farmLandType,
-        farmAddress,
-        farmCity,
-        farmCountry,
-        farmZipCode,
       }).some(
         (name) =>
           (formValues[name].required && !formValues[name].value) ||
@@ -48,76 +37,6 @@ export default function SecondStep() {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            // variant={variant}
-            margin={margin}
-            fullWidth
-            label="Name"
-            name="farmName"
-            value={farmName.value}
-            onChange={handleChange}
-            error={!!farmName.error}
-            helperText={farmName.error}
-            required={farmName.required}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            // variant={variant}
-            margin={margin}
-            fullWidth
-            label="Address"
-            name="farmAddress"
-            value={farmAddress.value}
-            onChange={handleChange}
-            error={!!farmAddress.error}
-            helperText={farmAddress.error}
-            required={farmAddress.required}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            // variant={variant}
-            margin={margin}
-            fullWidth
-            label="City"
-            name="farmCity"
-            value={farmCity.value}
-            onChange={handleChange}
-            error={!!farmCity.error}
-            helperText={farmCity.error}
-            required={farmCity.required}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            // variant={variant}
-            margin={margin}
-            fullWidth
-            label="Country"
-            name="farmCountry"
-            value={farmCountry.value}
-            onChange={handleChange}
-            error={!!farmCountry.error}
-            helperText={farmCountry.error}
-            required={farmCountry.required}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            // variant={variant}
-            margin={margin}
-            fullWidth
-            label="Zip Code"
-            name="farmZipCode"
-            value={farmZipCode.value}
-            onChange={handleChange}
-            error={!!farmZipCode.error}
-            helperText={farmZipCode.error}
-            required={farmZipCode.required}
-          />
-        </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             // variant={variant}

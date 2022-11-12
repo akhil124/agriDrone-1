@@ -20,9 +20,9 @@ const handleSteps = (step) => {
     case 1:
       return <SecondStep />;
     case 2:
-      return <ThirdStep />;
-    case 3:
       return <Confirm />;
+    // case 3:
+    //   return <Confirm />;
     default:
       throw new Error("Unknown step");
   }

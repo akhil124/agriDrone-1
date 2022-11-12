@@ -20,6 +20,7 @@ export default function Confirm() {
     farmCity,
     farmCountry,
     farmZipCode,
+    farmLandType,
   } = formValues;
 
   const handleSubmit = () => {
@@ -48,6 +49,7 @@ export default function Confirm() {
         city: farmCity.value,
         country: farmCountry.value,
         zipCode: farmZipCode.value,
+        farmLandType: farmLandType.value,
       },
     });
     // Show last component or success message
@@ -107,6 +109,14 @@ export default function Confirm() {
             secondary={farmName.value || "Not Provided"}
           />
         </ListItem>
+        <Divider />
+
+        <ListItem>
+          <ListItemText
+            primary="Farm land type"
+            secondary={farmLandType.value || "Not Provided"}
+          />
+        </ListItem>
 
         <Divider />
 
@@ -144,11 +154,15 @@ export default function Confirm() {
         </ListItem>
       </List>
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
         <Button sx={{ mr: 1 }} onClick={handleBack}>
           Back
         </Button>
-        <Button variant="contained" color="success" onClick={handleSubmit}>
+        <Button
+          className="bg-green-700 text-white hover:text-green-700"
+          color="success"
+          onClick={handleSubmit}
+        >
           Confirm & Continue
         </Button>
       </Box>

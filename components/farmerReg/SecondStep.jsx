@@ -11,13 +11,21 @@ import { AppContext } from "../Context";
 export default function SecondStep() {
   const { formValues, handleChange, handleBack, handleNext, variant, margin } =
     useContext(AppContext);
-  const { farmName, farmAddress, farmCity, farmCountry, farmZipCode } =
-    formValues;
+  const {
+    farmName,
+    farmLandType,
+    farmAddress,
+    farmCity,
+    farmCountry,
+    farmZipCode,
+    somethingElse,
+  } = formValues;
 
   const isError = useCallback(
     () =>
       Object.keys({
         farmName,
+        farmLandType,
         farmAddress,
         farmCity,
         farmCountry,
@@ -27,7 +35,15 @@ export default function SecondStep() {
           (formValues[name].required && !formValues[name].value) ||
           formValues[name].error
       ),
-    [formValues, farmName, farmAddress, farmCity, farmCountry, farmZipCode]
+    [
+      formValues,
+      farmName,
+      farmLandType,
+      farmAddress,
+      farmCity,
+      farmCountry,
+      farmZipCode,
+    ]
   );
 
   return (
@@ -46,6 +62,41 @@ export default function SecondStep() {
             helperText={farmName.error}
             required={farmName.required}
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            // variant={variant}
+            margin={margin}
+            fullWidth
+            label="Farm Land Type"
+            name="farmLandType"
+            value={farmLandType.value}
+            onChange={handleChange}
+            error={!!farmZipCode.error}
+            helperText={farmZipCode.error}
+            required={farmZipCode.required}
+          />
+
+          {/* <TextField
+            margin={margin}
+            fullWidth
+            select
+            SelectProps={{
+              native: true,
+            }}
+            label="Plot type"
+            name="plotType"
+            value={somethingElse.value}
+            onChange={handleChange}
+            error={!!farmZipCode.error}
+            helperText={farmZipCode.error}
+            required={farmZipCode.required}
+          >
+            <option value="liveStock">Live Stock</option>
+            <option value="crops">Crops</option>
+            <option value="fruits">Fruits</option>
+            <option value="nursery">Nursery</option>
+          </TextField> */}
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
