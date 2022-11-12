@@ -21,9 +21,7 @@ const INITIAL_DATA = {
 
 function App() {
   const [data, setData] = useState(INITIAL_DATA);
-  useEffect(() => {
-    console.log(data, "DATA");
-  }, [data]);
+
   function updateFields(fields) {
     // console.log(fields.target.value, "FIELDS");
     setData((prev) => {

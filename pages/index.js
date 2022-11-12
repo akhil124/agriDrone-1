@@ -96,7 +96,7 @@ export async function getServerSideProps({ req }) {
       `${process.env.HOST}api/user?email=${session.user.email}`
     );
     const data = await res.json();
-    console.log(data, "DATASSS");
+
     return {
       props: { session, data },
     };

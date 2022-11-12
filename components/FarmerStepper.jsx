@@ -8,6 +8,8 @@ import initiaalValues from "../lib/initialValues";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import { useRouter } from "next/router";
+import axios from "axios";
 const INITIAL_DATA = {
   fullName: "",
 
@@ -29,14 +31,10 @@ const INITIAL_DATA = {
 };
 
 function FarmerStepper() {
-  {
-  }
+  const router = useRouter();
   const [data, setData] = useState(INITIAL_DATA);
-  useEffect(() => {
-    console.log(data, "DATA");
-  }, [data]);
+  const [isLoading, setIsLoading] = useState(0);
   function updateFields(fields) {
-    // console.log(fields.target.value, "FIELDS");
     setData((prev) => {
       return { ...prev, ...fields };
     });
@@ -48,17 +46,18 @@ function FarmerStepper() {
       <ThirdStep {...data} updateFields={updateFields} />,
     ]);
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     if (!isLastStep) return next();
+    setIsLoading(true);
+    console.log(isLoading);
     const updatedInfo = {
-      basicInfo: {
-        fullName: data.fullName,
-        email: data.email,
-        gender: data.gender,
-        birthday: data.birthday,
-        phoneNumber: data.phoneNumber,
-      },
+      fullName: data.fullName,
+      email: data.email,
+      gender: data.gender,
+      birthday: data.birthday,
+      phoneNumber: data.phoneNumber,
+      accountRegistered: true,
       farmInfo: {
         name: data.farmName,
         address: data.farmAddress,
@@ -74,7 +73,11 @@ function FarmerStepper() {
         cvv: data.cvv,
       },
     };
-    console.log(updatedInfo);
+    const user = await axios.post(`${process.env.NEXT_PUBLIC_HOST}api/farmer`, {
+      user: updatedInfo,
+    });
+    setIsLoading(false);
+    router.push("/");
   }
   const labels = ["one", "two", "three"];
   return (
@@ -112,7 +115,7 @@ function FarmerStepper() {
             color="primary"
             type="submit"
           >
-            {isLastStep ? "Finish" : "Next"}
+            {isLoading ? "Loading" : isLastStep ? "Finish" : "Next"}
           </Button>
         </div>
       </form>

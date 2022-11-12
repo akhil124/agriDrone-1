@@ -28,12 +28,7 @@ a {
 * {
   box-sizing: border-box;
 }
-button {
-  /* background-color: var(--primary) !important; */
-}
-button:hover {
-  background-color: inherit;
-}
+
 .primary {
   color: #1a3447;
 }

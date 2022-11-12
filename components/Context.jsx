@@ -74,7 +74,7 @@ export function StepsProvider({ children }) {
   // Handle form change
   const handleChange = (event, checked) => {
     const { type, name, value } = event.target;
-    console.log({ type, name, value }, "EVENT");
+
     const fieldValue = type === "checkbox" ? checked : value;
 
     dispatch({ type: "form-value", name, fieldValue });

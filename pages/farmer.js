@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../layout/navbarLayout";
 import styles from "../styles/Form.module.css";
 import { getSession } from "next-auth/react";
 import FarmerInfoForm from "../components/FarmerInfoForm";
+import FarmerStepper from "../components/FarmerStepper";
+import axios from "axios";
+const farmer = ({ data }) => {
+  console.log(data.message.email);
 
-const farmer = () => {
   return (
     <Layout>
-      <h1 className="text-3xl text-[color:var(--primary)] font-semibold">
-        Farmer Information
-      </h1>
       <div className="mt-8">
-        <FarmerInfoForm />
+        <FarmerStepper />
       </div>
     </Layout>
   );
@@ -42,6 +42,7 @@ export async function getServerSideProps({ req }) {
         },
       };
     }
+
     return {
       props: { session, data },
     };
