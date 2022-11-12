@@ -1,8 +1,8 @@
 import React from "react";
 import StepForm from "../components/farmerReg/StepForm";
 import Layout from "../layout/navbarLayout";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FarmerStepper from "../components/FarmerStepper";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {

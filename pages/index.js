@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import RoleSelection from "../components/RoleSelection";
 import { getSession, useSession, signOut } from "next-auth/react";
+import FarmerDashboard from "../components/Dashboard/FarmerDashboard";
 
 export default function Home({ session, data }) {
   // const { data: session } = useSession();
@@ -16,7 +17,7 @@ export default function Home({ session, data }) {
   return (
     <div>
       <Head>
-        <title>Home Page</title>
+        <title>Dashboard</title>
       </Head>
 
       {data.message.role ? (
@@ -51,7 +52,12 @@ export default function Home({ session, data }) {
 
 // Authorize User
 function User({ session, handleSignOut, data }) {
-  // if (data.message.role === "farmer") return <div>Farmer</div>;
+  if (data.message.role === "farmer")
+    return (
+      <>
+        <FarmerDashboard user={data.message} />
+      </>
+    );
   return (
     <main className="container mx-auto text-center py-20">
       <h3 className="text-4xl font-bold">Authorize User Homepage</h3>
