@@ -1,33 +1,30 @@
 import { Button } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
-import FirstStep from "./FirstStep";
 import { useMultistepForm } from "../../hooks/useMultiForm";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { useRouter } from "next/router";
 import axios from "axios";
-import SecondStep from "./SecondStep";
-import ThirdStep from "./ThirdStep";
+import StepOne from "./FarmerDroneSteps/StepOne";
+import StepTwo from "./FarmerDroneSteps/StepTwo";
+import StepThree from "./FarmerDroneSteps/StepThree";
 const INITIAL_DATA = {
-  fullName: "",
-
-  email: "",
-  gender: "",
-  phoneNumber: "",
-  birthday: "",
-  // step 2
-
-  cardName: "",
-  cardNumber: "",
-  exp: "",
-  cvv: "",
+  farm: "3671 Old Toll Road, Mariposa, CA 95338",
+  farmLand: "",
+  selectedDrone: {
+    droneID: "",
+  },
+  droneId: "",
+  rentalStartDate: "",
+  rentalEndDate: "",
 };
 
 function PilotStepper() {
   const router = useRouter();
   const [data, setData] = useState(INITIAL_DATA);
   const [isLoading, setIsLoading] = useState(0);
+
   function updateFields(fields) {
     setData((prev) => {
       return { ...prev, ...fields };
@@ -35,35 +32,25 @@ function PilotStepper() {
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <FirstStep {...data} updateFields={updateFields} />,
-      <SecondStep {...data} updateFields={updateFields} />,
-      <ThirdStep {...data} updateFields={updateFields} />,
+      <StepOne {...data} updateFields={updateFields} />,
+      <StepTwo {...data} updateFields={updateFields} />,
+      <StepThree {...data} updateFields={updateFields} />,
     ]);
 
   async function onSubmit(e) {
     e.preventDefault();
     if (!isLastStep) return next();
-    setIsLoading(true);
+    // setIsLoading(true);
+    // console.log(isLoading);
     const updatedInfo = {
-      fullName: data.fullName,
-      email: data.email,
-      gender: data.gender,
-      birthday: data.birthday,
-      phoneNumber: data.phoneNumber,
-      accountRegistered: true,
-
-      cardInfo: {
-        name: data.cardName,
-        number: data.cardNumber,
-        exp: data.exp,
-        cvv: data.cvv,
-      },
+      ...data,
     };
-    const user = await axios.post(`${process.env.NEXT_PUBLIC_HOST}api/pilot`, {
-      user: updatedInfo,
-    });
-    setIsLoading(false);
-    router.push("/");
+    // const user = await axios.post(`${process.env.NEXT_PUBLIC_HOST}api/pilot`, {
+    //   user: updatedInfo,
+    // });
+    console.log(updatedInfo);
+    // setIsLoading(false);
+    // router.push("/");
   }
   const labels = ["one", "two", "three"];
   return (

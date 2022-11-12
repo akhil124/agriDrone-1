@@ -52,7 +52,6 @@ function FarmerStepper() {
     e.preventDefault();
     if (!isLastStep) return next();
     setIsLoading(true);
-    console.log(isLoading);
     const updatedInfo = {
       fullName: data.fullName,
       email: data.email,

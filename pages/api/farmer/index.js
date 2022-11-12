@@ -14,7 +14,6 @@ export default async function handler(req, res) {
   }
   if (method === "POST") {
     const { user } = req.body;
-    console.log(user);
     try {
       const farmer = await Farmers.create(user);
       res.status(200).json({ success: true, message: farmer });
