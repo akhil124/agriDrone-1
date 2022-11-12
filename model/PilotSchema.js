@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-const farmerSchema = new Schema({
+const pilotSchema = new Schema({
   accountRegistered: {
     type: Boolean,
     default: false,
@@ -10,13 +10,7 @@ const farmerSchema = new Schema({
   phoneNumber: String,
   gender: String,
   birthday: String,
-  farmInfo: {
-    name: String,
-    city: String,
-    country: String,
-    zipCode: String,
-    plotType: String,
-  },
+
   cardInfo: {
     cardName: String,
     cardNumber: String,
@@ -25,6 +19,6 @@ const farmerSchema = new Schema({
   },
 });
 
-const Farmers = models.farmer || model("farmer", farmerSchema);
+const Pilots = models.pilot || model("pilot", pilotSchema);
 
-export default Farmers;
+export default Pilots;

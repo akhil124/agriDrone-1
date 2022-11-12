@@ -1,8 +1,15 @@
 import React from "react";
 import Layout from "../layout/navbarLayout";
 import { getSession } from "next-auth/react";
+import PilotStepper from "../components/pilotReg/PilotStepper";
 const pilot = () => {
-  return <Layout>Pilot</Layout>;
+  return (
+    <Layout>
+      <div className="mt-8">
+        <PilotStepper />
+      </div>
+    </Layout>
+  );
 };
 
 export default pilot;

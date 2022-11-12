@@ -14,15 +14,8 @@ export default function SecondStep({
   birthday,
   gender,
   phoneNumber,
-  farmName,
-  farmLandType,
-  farmAddress,
-  farmCity,
-  farmCountry,
-  farmZipCode,
   cardName,
   cardNumber,
-
   updateFields,
 }) {
   const isError = () => false;
@@ -33,7 +26,7 @@ export default function SecondStep({
         Review
       </h2>
       <div className="text-2xl text-[color:var(--primary)] font-semibold mb-10">
-        <p className="mb-4">Farmer Information</p>
+        <p className="mb-4">Pilot Information</p>
         <p className="text-lg mb-2">
           Name: <span className="text-md font-normal">{fullName}</span>
         </p>
@@ -49,24 +42,6 @@ export default function SecondStep({
         </p>
         <p className="text-lg mb-2">
           DOB: <span className="text-md font-normal">{birthday}</span>
-        </p>
-      </div>
-      <div className="text-2xl text-[color:var(--primary)] font-semibold">
-        <p className="mb-4">Farm Information</p>
-        <p className="text-lg mb-2">
-          Farm Name: <span className="text-md font-normal">{farmName}</span>
-        </p>
-        <p className="text-lg mb-2">
-          Plot Type: <span className="text-md font-normal">{farmLandType}</span>
-        </p>
-        <p className="text-lg mb-2">
-          Address: <span className="text-md font-normal">{farmAddress}</span>
-        </p>
-        <p className="text-lg mb-2">
-          City: <span className="text-md font-normal">{farmCity}</span>
-        </p>
-        <p className="text-lg mb-2">
-          Country: <span className="text-md font-normal">{farmCountry}</span>
         </p>
       </div>
       <div className="text-2xl text-[color:var(--primary)] font-semibold mb-10">

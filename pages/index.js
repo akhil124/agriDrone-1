@@ -51,6 +51,7 @@ export default function Home({ session, data }) {
 
 // Authorize User
 function User({ session, handleSignOut, data }) {
+  // if (data.message.role === "farmer") return <div>Farmer</div>;
   return (
     <main className="container mx-auto text-center py-20">
       <h3 className="text-4xl font-bold">Authorize User Homepage</h3>
