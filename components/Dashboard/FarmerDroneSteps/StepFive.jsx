@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import dayjs from "dayjs";
+import axios from "axios";
 const Card = ({ Title, Service, ImageUrl, Farm, FarmLand, FlightDetails }) => {
-  console.log(
-    { Title, Service, ImageUrl, Farm, FarmLand, FlightDetails },
-    "DETAILS"
-  );
   return (
     <div className="flex flex-1 gap-4 items-center p-4 rounded-lg shadow-md">
       <div className="relative w-[120px] h-[80px] rounded-lg">
@@ -29,6 +26,38 @@ const Card = ({ Title, Service, ImageUrl, Farm, FarmLand, FlightDetails }) => {
             {dayjs(FlightDetails.startDate).format("DD/MM/YYYY")} -{" "}
             {FlightDetails.duration} Days
           </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+const PilotCard = ({
+  name,
+  Service,
+  ImageUrl,
+  Farm,
+  FarmLand,
+  FlightDetails,
+}) => {
+  return (
+    <div className="flex flex-1 gap-4 items-center p-4 rounded-lg shadow-md">
+      <div className="relative w-[120px] h-[80px] rounded-lg">
+        <Image
+          className="rounded-full"
+          src={ImageUrl}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+      <div className="text-sm">
+        <div className="font-semibold text-gray-600">
+          <h1>{name}</h1>
+          <h2 className="mt-1">Drone Pilot</h2>
+        </div>
+        <div className="text-gray-500 mt-2">
+          <p>License #: FA123G4567</p>
+          <p>Phone: 1234567890</p>
+          <p>Address: 2200 10th Street, Plano, TX 75074</p>
         </div>
       </div>
     </div>
@@ -127,6 +156,16 @@ const SummaryCard = ({ price, FlightDetails }) => {
   );
 };
 const StepFive = ({ farm, farmLand, selectedDrone, flightDetails }) => {
+  const [pilot, setPilot] = useState({});
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_HOST}api/pilot?pilotID=6371068b7f7017edb5859ade`
+      )
+      .then(({ data: message }) => {
+        setPilot({ ...pilot, pilotName: message.message.fullName });
+      });
+  }, []);
   return (
     <div>
       <h1 className="font-semibold text-3xl text-[color:var(--primary)]">
@@ -148,14 +187,9 @@ const StepFive = ({ farm, farmLand, selectedDrone, flightDetails }) => {
           Service={selectedDrone.service}
           FlightDetails={flightDetails}
         />
-        <Card
-          Farm={"LicenseFA817G7834"}
-          FarmLand={"Address: 6391 Elgin St Celina, Delaware"}
-          ImageUrl={"/assets/pilot-1.jpg"}
-          Title={"Drone Pilot"}
-          Service={"John Roland"}
-          FlightDetails={flightDetails}
-        />
+
+        <PilotCard ImageUrl={"/assets/pilot-1.jpg"} name={pilot.pilotName} />
+
         {/* <Card /> */}
       </div>
       <div className="my-6">

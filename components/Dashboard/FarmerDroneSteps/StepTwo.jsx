@@ -1,7 +1,10 @@
 import { Button } from "@mui/material";
 import Image from "next/image";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import availability from "timeslot-availability";
+import axios from "axios";
 const drones = [
   {
     droneID: "1",
@@ -141,7 +144,26 @@ const DroneCard = ({
     </div>
   );
 };
-const DroneWrapper = ({ updateFields, selectedDrone }) => {
+const DroneWrapper = ({ updateFields, selectedDrone, session }) => {
+  // const [drones, setDrone] = useState(DRONES);
+  // const [slots, setSlots] = useState([]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_HOST}api/pilot/slots?getAll=true`)
+  //     .then((res) => {
+  //       setSlots(res.data.message);
+  //     });
+  // }, []);
+  // useEffect(() => {
+  //   if (slots.length > 0) {
+  //     const start = slotes;
+  //     const end = new Date("2019-08-08T16:00:00.000Z");
+  //     const timespan = 30 * 60; // 30 minutes
+  //     const bookable = availability(start, end, timespan, slots);
+
+  //     console.log(bookable, "BOOKABLE");
+  //   }
+  // }, [slots]);
   const [selectedID, setSelectedID] = useState("");
   return (
     <div className="grid grid-cols-2 gap-8">
@@ -158,7 +180,7 @@ const DroneWrapper = ({ updateFields, selectedDrone }) => {
     </div>
   );
 };
-function StepTwo({ updateFields, selectedDrone }) {
+function StepTwo({ updateFields, selectedDrone, session }) {
   return (
     <div>
       <h1 className="font-semibold text-3xl text-[color:var(--primary)]">
@@ -169,6 +191,7 @@ function StepTwo({ updateFields, selectedDrone }) {
       </p>
       <div>
         <DroneWrapper
+          session={session}
           selectedDrone={selectedDrone}
           updateFields={updateFields}
         />

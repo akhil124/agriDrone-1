@@ -32,12 +32,14 @@ const INITIAL_DATA = {
     startDate: "",
     endDate: "",
     duration: "",
-    pilotID: "",
+    pilotID: "6371068b7f7017edb5859ade",
   },
 };
 
-function PilotStepper() {
-  const { data: session, status } = useSession();
+function FarmerStepper({ session }) {
+  // const { data: session, status } = useSession();
+  // if (status === "loading") return <>Loading</>;
+
   const router = useRouter();
   const [data, setData] = useState(INITIAL_DATA);
   const [isLoading, setIsLoading] = useState(0);
@@ -47,10 +49,11 @@ function PilotStepper() {
       return { ...prev, ...fields };
     });
   }
+
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
       <StepOne {...data} updateFields={updateFields} />,
-      <StepTwo {...data} updateFields={updateFields} />,
+      <StepTwo {...data} updateFields={updateFields} session={session} />,
       <StepThree {...data} updateFields={updateFields} />,
       <StepFour {...data} updateFields={updateFields} />,
       <StepFive {...data} updateFields={updateFields} />,
@@ -63,12 +66,29 @@ function PilotStepper() {
     if (!isLastStep) return next();
     if (isLoading) return;
     setIsLoading(true);
-    // console.log(isLoading);
+    console.log(data.flightDetails);
     const updatedInfo = {
       ...data,
       farmType: data.farmType.split("_")[1],
       farmLand: data.farmLand.split("_")[0],
     };
+    const bookingInfo = {
+      flightDetails: data.flightDetails,
+      pilotID: data.flightDetails.pilotID,
+      farmDetails: {
+        farm: data.farm,
+        farmType: data.farmType.split("_")[1],
+        farmLand: data.farmLand.split("_")[0],
+      },
+    };
+    const booking = await axios.post(
+      `${process.env.NEXT_PUBLIC_HOST}api/pilot/booking`,
+      {
+        email: session.user.email,
+        booking: bookingInfo,
+      }
+    );
+
     const order = await axios.post(
       `${process.env.NEXT_PUBLIC_HOST}api/farmer/bookDrone`,
       {
@@ -76,7 +96,6 @@ function PilotStepper() {
         booking: updatedInfo,
       }
     );
-    console.log(order.data.success, "Response");
     setIsLoading(false);
     router.push("/");
   }
@@ -124,4 +143,4 @@ function PilotStepper() {
   );
 }
 
-export default PilotStepper;
+export default FarmerStepper;

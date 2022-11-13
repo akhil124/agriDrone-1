@@ -127,9 +127,9 @@ const Availabitily = (props) => {
     if (status === "authenticated") {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_HOST}api/pilot?email=${session.user?.email}`
+          `${process.env.NEXT_PUBLIC_HOST}api/pilot/slots?email=${session.user?.email}`
         )
-        .then((res) => setSlots(res.data.message.slots));
+        .then((res) => setSlots(res.data.message));
     }
   }, [session]);
   return (
@@ -174,14 +174,16 @@ function BasicModal({
   const handleClose = () => setOpen(false);
   const { data: session, status } = useSession();
   const handleAdd = async () => {
-    const res = await axios.put(`${process.env.NEXT_PUBLIC_HOST}api/pilot`, {
-      email: session.user.email,
-      slot: {
-        start: start,
-        end: end,
-      },
-    });
-    console.log(res.data, "RESPONSE");
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_HOST}api/pilot/slots`,
+      {
+        email: session.user.email,
+        slot: {
+          start: start,
+          end: end,
+        },
+      }
+    );
   };
   return (
     <div>

@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import Layout from "../../../layout/farmerDashboardLayout";
 import FarmerBookDroneStepper from "../../../components/Dashboard/FarmerBookDroneStepper";
 import Head from "next/head";
-const bookDrone = () => {
+const bookDrone = ({ session }) => {
   return (
     <>
       <Head>
@@ -11,7 +11,7 @@ const bookDrone = () => {
       </Head>
       <Layout>
         <div className="w-[75%] m-auto">
-          <FarmerBookDroneStepper />
+          <FarmerBookDroneStepper session={session} />
         </div>
       </Layout>
     </>
