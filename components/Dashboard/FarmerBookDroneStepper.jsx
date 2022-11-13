@@ -9,15 +9,27 @@ import axios from "axios";
 import StepOne from "./FarmerDroneSteps/StepOne";
 import StepTwo from "./FarmerDroneSteps/StepTwo";
 import StepThree from "./FarmerDroneSteps/StepThree";
+import StepFour from "./FarmerDroneSteps/StepFour";
+import StepFive from "./FarmerDroneSteps/StepFive";
+import StepSix from "./FarmerDroneSteps/StepSix";
+import StepSeven from "./FarmerDroneSteps/StepSeven";
 const INITIAL_DATA = {
   farm: "3671 Old Toll Road, Mariposa, CA 95338",
   farmLand: "",
   selectedDrone: {
     droneID: "",
   },
-  droneId: "",
-  rentalStartDate: "",
-  rentalEndDate: "",
+  cardDetails: {
+    cardName: "",
+    cardNumber: "",
+    exp: "",
+    cvv: "",
+  },
+  flightDetails: {
+    startDate: "",
+    endDate: "",
+    duration: "",
+  },
 };
 
 function PilotStepper() {
@@ -35,6 +47,10 @@ function PilotStepper() {
       <StepOne {...data} updateFields={updateFields} />,
       <StepTwo {...data} updateFields={updateFields} />,
       <StepThree {...data} updateFields={updateFields} />,
+      <StepFour {...data} updateFields={updateFields} />,
+      <StepFive {...data} updateFields={updateFields} />,
+      <StepSix {...data} updateFields={updateFields} />,
+      <StepSeven {...data} updateFields={updateFields} />,
     ]);
 
   async function onSubmit(e) {
@@ -52,7 +68,7 @@ function PilotStepper() {
     // setIsLoading(false);
     // router.push("/");
   }
-  const labels = ["one", "two", "three"];
+  const labels = ["one", "two", "three", "four", "five", "six", "seven"];
   return (
     <div className="">
       <form onSubmit={onSubmit}>

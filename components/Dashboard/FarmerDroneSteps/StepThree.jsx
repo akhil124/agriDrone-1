@@ -33,7 +33,7 @@ const StepThree = ({
     }
   }, [startDate, endDate]);
   return (
-    <div>
+    <div className="min-h-[350px]">
       <h1 className="font-semibold text-3xl text-[color:var(--primary)]">
         Step 3: Schedule Service
       </h1>

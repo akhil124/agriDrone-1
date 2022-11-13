@@ -144,7 +144,7 @@ const DroneCard = ({
 const DroneWrapper = ({ updateFields, selectedDrone }) => {
   const [selectedID, setSelectedID] = useState("");
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <div className="grid grid-cols-2 gap-8">
       {drones.map((drone) => (
         <DroneCard
           selectedDrone={selectedDrone}

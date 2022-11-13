@@ -7,9 +7,9 @@ import {
   FormLabel,
   TextField,
 } from "@mui/material";
-const StepOne = ({ farmLand, droneId, updateFields }) => {
+const StepOne = ({ farmLand, updateFields }) => {
   return (
-    <div>
+    <div className="min-h-[350px]">
       <h1 className="font-semibold text-3xl text-[color:var(--primary)]">
         Step 1: Farmland Selection
       </h1>

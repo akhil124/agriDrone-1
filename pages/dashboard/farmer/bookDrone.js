@@ -2,11 +2,19 @@ import React from "react";
 import { getSession } from "next-auth/react";
 import Layout from "../../../layout/farmerDashboardLayout";
 import FarmerBookDroneStepper from "../../../components/Dashboard/FarmerBookDroneStepper";
+import Head from "next/head";
 const bookDrone = () => {
   return (
-    <Layout>
-      <FarmerBookDroneStepper />
-    </Layout>
+    <>
+      <Head>
+        <title>Book Drone</title>
+      </Head>
+      <Layout>
+        <div className="w-[75%] m-auto">
+          <FarmerBookDroneStepper />
+        </div>
+      </Layout>
+    </>
   );
 };
 

@@ -18,8 +18,20 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 const drawerWidth = 240;
-
+const Items = [
+  {
+    id: 1,
+    label: "My bookings",
+    url: "/",
+  },
+  {
+    id: 2,
+    label: "Book drone service",
+    url: "/dashboard/farmer/bookDrone",
+  },
+];
 export default function ClippedDrawer({ children }) {
   return (
     <Box sx={{ display: "flex" }}>
@@ -49,28 +61,25 @@ export default function ClippedDrawer({ children }) {
             </p>
           </div>
           <List>
-            {[
-              "Maintenance",
-              "Book drone service",
-              "My bookings",
-              "Service reports",
-            ].map((text, index) => (
-              <ListItem key={text} disablePadding className="py-2">
-                <ListItemButton>
-                  <ListItemIcon>
-                    {text === "Maintenance" ? (
-                      <SettingsIcon />
-                    ) : text === "Book drone service" ? (
-                      <WidgetsOutlinedIcon />
-                    ) : text === "My bookings" ? (
-                      <LibraryBooksOutlinedIcon />
-                    ) : (
-                      <MailIcon />
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
+            {Items.map((item, index) => (
+              <Link key={item.id} href={item.url}>
+                <ListItem disablePadding className="py-2">
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {item.label === "Maintenance" ? (
+                        <SettingsIcon />
+                      ) : item.label === "Book drone service" ? (
+                        <WidgetsOutlinedIcon />
+                      ) : item.label === "My bookings" ? (
+                        <LibraryBooksOutlinedIcon />
+                      ) : (
+                        <MailIcon />
+                      )}
+                    </ListItemIcon>
+                    <ListItemText primary={item.label} />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
             ))}
           </List>
           <Divider />
@@ -86,7 +95,7 @@ export default function ClippedDrawer({ children }) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        {children}
+        <div className="">{children}</div>
       </Box>
     </Box>
   );
