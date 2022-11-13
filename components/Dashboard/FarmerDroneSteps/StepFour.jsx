@@ -7,7 +7,6 @@ const StepFour = ({
   farmLand,
   flightDetails,
 }) => {
-  console.log(flightDetails);
   return (
     <div>
       <h1 className="font-semibold text-3xl text-[color:var(--primary)]">

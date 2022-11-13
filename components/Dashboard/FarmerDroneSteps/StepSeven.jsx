@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 const Card = ({ Title, Service, ImageUrl, Farm, FarmLand, FlightDetails }) => {
-  console.log(
-    { Title, Service, ImageUrl, Farm, FarmLand, FlightDetails },
-    "DETAILS"
-  );
   return (
     <div className="flex flex-1 gap-4 items-center p-4 rounded-lg shadow-md">
       <div className="relative w-[120px] h-[80px] rounded-lg">

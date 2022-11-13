@@ -6,8 +6,6 @@ import FarmerInfoForm from "../components/FarmerInfoForm";
 import FarmerStepper from "../components/FarmerStepper";
 import axios from "axios";
 const farmer = ({ data }) => {
-  console.log(data.message.email);
-
   return (
     <Layout>
       <div className="mt-8">

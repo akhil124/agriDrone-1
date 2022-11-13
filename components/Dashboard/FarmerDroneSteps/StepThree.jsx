@@ -29,7 +29,6 @@ const StepThree = ({
           duration: duration,
         },
       });
-      console.log(duration, "DATA");
     }
   }, [startDate, endDate]);
   return (

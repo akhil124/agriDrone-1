@@ -13,6 +13,7 @@ import StepFour from "./FarmerDroneSteps/StepFour";
 import StepFive from "./FarmerDroneSteps/StepFive";
 import StepSix from "./FarmerDroneSteps/StepSix";
 import StepSeven from "./FarmerDroneSteps/StepSeven";
+
 const INITIAL_DATA = {
   farm: "3671 Old Toll Road, Mariposa, CA 95338",
   farmLand: "",
@@ -56,17 +57,22 @@ function PilotStepper() {
   async function onSubmit(e) {
     e.preventDefault();
     if (!isLastStep) return next();
-    // setIsLoading(true);
+    if (isLoading) return;
+    setIsLoading(true);
     // console.log(isLoading);
     const updatedInfo = {
       ...data,
     };
-    // const user = await axios.post(`${process.env.NEXT_PUBLIC_HOST}api/pilot`, {
-    //   user: updatedInfo,
-    // });
-    console.log(updatedInfo);
-    // setIsLoading(false);
-    // router.push("/");
+    const order = await axios.post(
+      `${process.env.NEXT_PUBLIC_HOST}api/farmer/bookDrone`,
+      {
+        email: "saisanthoshp08@gmail.com",
+        booking: updatedInfo,
+      }
+    );
+    console.log(order.data.success, "Response");
+    setIsLoading(false);
+    router.push("/");
   }
   const labels = ["one", "two", "three", "four", "five", "six", "seven"];
   return (
@@ -104,7 +110,7 @@ function PilotStepper() {
             color="primary"
             type="submit"
           >
-            {isLoading ? "Loading" : isLastStep ? "Finish" : "Next"}
+            {isLoading ? "Booking" : isLastStep ? "Finish" : "Next"}
           </Button>
         </div>
       </form>
