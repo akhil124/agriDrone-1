@@ -23,20 +23,25 @@ const StepOne = ({ farmLand, updateFields }) => {
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
               value={farmLand}
-              onChange={(e) => updateFields({ farmLand: e.target.value })}
+              onChange={(e) =>
+                updateFields({
+                  farmLand: e.target.value,
+                  farmType: e.target.value,
+                })
+              }
             >
               <FormControlLabel
-                value="West Plot A"
+                value="West Plot A_LiveStock"
                 control={<Radio />}
                 label="West Plot A: LiveStock"
               />
               <FormControlLabel
-                value="West Plot B"
+                value="West Plot B_Crop"
                 control={<Radio />}
                 label="West Plot B: Crop"
               />
               <FormControlLabel
-                value="North Plot B"
+                value="North Plot B_Nursery"
                 control={<Radio />}
                 label="North Plot B: Nursery"
               />

@@ -1,9 +1,9 @@
 import React from "react";
 import FarmerTable from "./FarmerTable";
-const FarmerBookingsSection = () => {
+const FarmerBookingsSection = ({ user }) => {
   return (
     <div className="mt-6">
-      <FarmerTable />
+      <FarmerTable user={user} />
     </div>
   );
 };

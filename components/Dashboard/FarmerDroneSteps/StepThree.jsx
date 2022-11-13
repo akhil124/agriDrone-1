@@ -18,14 +18,15 @@ const StepThree = ({
 
   useEffect(() => {
     if (startDate && endDate) {
+      console.log(startDate, "DATE");
       const date1 = dayjs(startDate);
       const date2 = dayjs(endDate);
 
       const duration = date2.diff(date1, "days");
       updateFields({
         flightDetails: {
-          startDate: date1.format("DD/MM/YYYY"),
-          endDate: date2.format("DD/MM/YYYY"),
+          startDate: startDate,
+          endDate: endDate,
           duration: duration,
         },
       });

@@ -21,6 +21,8 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import axios from "axios";
+import dayjs from "dayjs";
 
 function createData(
   serviceID,
@@ -266,14 +268,44 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable({ user }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [data, setData] = React.useState([]);
 
+  React.useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_HOST}api/farmer/bookDrone?email=${user.email}`
+      )
+      .then((res) => setData(res.data.message));
+  }, []);
+  React.useEffect(() => {
+    if (data.length > 0) {
+      console.log(data[0].flightDetails.startDate);
+    }
+  }, [data]);
+  const fetchedRows = data.map((order) => {
+    return createData(
+      `ID #${order._id.slice(-4)}`,
+      order.farmLand,
+      order?.farmType,
+      order?.selectedDrone?.service,
+      dayjs(order?.flightDetails?.startDate).format("DD/MM/YYYY"),
+      dayjs(order.flightDetails.startDate) > dayjs()
+        ? "booked"
+        : dayjs(order.flightDetails.endDate) < dayjs()
+        ? "finished"
+        : "active"
+    );
+  });
+  // {
+  //   serviceID, farmLand, landType, service, serviceTime, status;
+  // }
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -349,7 +381,7 @@ export default function EnhancedTable() {
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.sort(getComparator(order, orderBy)).slice() */}
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(fetchedRows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
@@ -406,7 +438,7 @@ export default function EnhancedTable() {
                     </TableRow>
                   );
                 })}
-              {emptyRows > 0 && (
+              {/* {emptyRows > 0 && (
                 <TableRow
                   style={{
                     height: (dense ? 33 : 53) * emptyRows,
@@ -414,14 +446,14 @@ export default function EnhancedTable() {
                 >
                   <TableCell colSpan={6} />
                 </TableRow>
-              )}
+              )} */}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={fetchedRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

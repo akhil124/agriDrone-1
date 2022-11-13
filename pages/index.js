@@ -102,6 +102,7 @@ export async function getServerSideProps({ req }) {
     const res = await fetch(
       `${process.env.HOST}api/user?email=${session.user.email}`
     );
+
     const data = await res.json();
 
     return {

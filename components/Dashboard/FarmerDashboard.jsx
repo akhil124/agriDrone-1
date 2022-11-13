@@ -7,7 +7,7 @@ const FarmerDashboard = ({ user }) => {
     <Layout>
       <div className="w-[75%] m-auto">
         <FarmerDashBoardWelcome user={user} />
-        <FarmerBookingsSection />
+        <FarmerBookingsSection user={user} />
       </div>
     </Layout>
   );

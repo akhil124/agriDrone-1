@@ -1,5 +1,6 @@
 import React from "react";
 import DroneCard from "./DroneCard";
+import dayjs from "dayjs";
 const StepFour = ({
   selectedDrone,
   updateDetails,
@@ -29,7 +30,7 @@ const StepFour = ({
               <p className="text-gray-700 font-semibold text-sm">
                 Date:{" "}
                 <span className="text-sm text-gray-500">
-                  {flightDetails.startDate}
+                  {dayjs(flightDetails.startDate).format("DD/MM/YYYY")}
                 </span>
               </p>
               <p className="text-gray-700 font-semibold mt-3 text-sm">

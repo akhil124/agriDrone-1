@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import dayjs from "dayjs";
 const Card = ({ Title, Service, ImageUrl, Farm, FarmLand, FlightDetails }) => {
   console.log(
     { Title, Service, ImageUrl, Farm, FarmLand, FlightDetails },
@@ -25,7 +26,8 @@ const Card = ({ Title, Service, ImageUrl, Farm, FarmLand, FlightDetails }) => {
             {Farm}: {FarmLand}
           </p>
           <p className="mt-2">
-            {FlightDetails.startDate} - {FlightDetails.duration} Days
+            {dayjs(FlightDetails.startDate).format("DD/MM/YYYY")} -{" "}
+            {FlightDetails.duration} Days
           </p>
         </div>
       </div>

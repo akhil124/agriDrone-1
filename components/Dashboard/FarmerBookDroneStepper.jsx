@@ -13,10 +13,12 @@ import StepFour from "./FarmerDroneSteps/StepFour";
 import StepFive from "./FarmerDroneSteps/StepFive";
 import StepSix from "./FarmerDroneSteps/StepSix";
 import StepSeven from "./FarmerDroneSteps/StepSeven";
+import { useSession } from "next-auth/react";
 
 const INITIAL_DATA = {
   farm: "3671 Old Toll Road, Mariposa, CA 95338",
   farmLand: "",
+  farmType: "",
   selectedDrone: {
     droneID: "",
   },
@@ -34,6 +36,7 @@ const INITIAL_DATA = {
 };
 
 function PilotStepper() {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [data, setData] = useState(INITIAL_DATA);
   const [isLoading, setIsLoading] = useState(0);
@@ -62,11 +65,13 @@ function PilotStepper() {
     // console.log(isLoading);
     const updatedInfo = {
       ...data,
+      farmType: data.farmType.split("_")[1],
+      farmLand: data.farmLand.split("_")[0],
     };
     const order = await axios.post(
       `${process.env.NEXT_PUBLIC_HOST}api/farmer/bookDrone`,
       {
-        email: "saisanthoshp08@gmail.com",
+        email: session.user.email,
         booking: updatedInfo,
       }
     );
