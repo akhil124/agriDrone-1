@@ -43,40 +43,28 @@ export default function SecondStep({
             required={farmName.required}
           />
         </Grid>
+
         <Grid item xs={12} sm={6}>
           <TextField
-            // variant={variant}
+            variant="outlined"
             // margin={margin}
-            fullWidth
-            label="Farm Land Type"
-            name="farmLandType"
-            value={farmLandType.value}
-            onChange={(e) => updateFields({ farmZipCode: e.target.value })}
-            error={!!farmZipCode.error}
-            helperText={farmZipCode.error}
-            required={farmZipCode.required}
-          />
-
-          {/* <TextField
-            margin={margin}
             fullWidth
             select
             SelectProps={{
               native: true,
             }}
-            label="Plot type"
+            label="Plot Type"
+            placeholder="Plot Type"
             name="plotType"
-            value={somethingElse.value}
-            onChange={e => updateFields({x:e.target.value})}
-            error={!!farmZipCode.error}
-            helperText={farmZipCode.error}
-            required={farmZipCode.required}
+            value={farmLandType.value}
+            onChange={(e) => updateFields({ farmLandType: e.target.value })}
           >
-            <option value="liveStock">Live Stock</option>
-            <option value="crops">Crops</option>
-            <option value="fruits">Fruits</option>
-            <option value="nursery">Nursery</option>
-          </TextField> */}
+            <option value=""></option>
+            <option value="Crop">Crop</option>
+            <option value="LiveStock">LiveStock</option>
+            <option value="Fruits">Fruits</option>
+            <option value="Nursery">Nursery</option>
+          </TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -94,8 +82,6 @@ export default function SecondStep({
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            // variant={variant}
-            // margin={margin}
             fullWidth
             label="City"
             name="farmCity"
@@ -108,8 +94,6 @@ export default function SecondStep({
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            // variant={variant}
-            // margin={margin}
             fullWidth
             label="Country"
             name="farmCountry"
@@ -122,8 +106,6 @@ export default function SecondStep({
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            // variant={variant}
-            // margin={margin}
             fullWidth
             label="Zip Code"
             name="farmZipCode"

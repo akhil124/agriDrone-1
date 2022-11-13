@@ -16,8 +16,22 @@ export default async function handler(req, res) {
     const { user } = req.body;
 
     try {
-      const farmer = await Pilots.create(user);
-      res.status(200).json({ success: true, message: farmer });
+      const pilot = await Pilots.create(user);
+      res.status(200).json({ success: true, message: pilot });
+    } catch (e) {
+      res.status(300).json({ success: false, message: e });
+    }
+  }
+  if (method === "PUT") {
+    const { email, slot } = req.body;
+
+    try {
+      const updatedPilot = await Pilots.findOneAndUpdate(
+        { email: email },
+        { $push: { slots: slot } },
+        { new: true }
+      );
+      res.status(200).json({ success: true, message: updatedPilot.slots });
     } catch (e) {
       res.status(300).json({ success: false, message: e });
     }

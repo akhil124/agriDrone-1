@@ -7,6 +7,8 @@ const theme = createTheme({
     primary: {
       // Purple and green play nicely together.
       main: "#1A3447",
+      light: "#1A3447",
+      dark: "#1A3447",
     },
     secondary: {
       // Purple and green play nicely together.

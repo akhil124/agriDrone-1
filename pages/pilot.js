@@ -2,11 +2,11 @@ import React from "react";
 import Layout from "../layout/navbarLayout";
 import { getSession } from "next-auth/react";
 import PilotStepper from "../components/pilotReg/PilotStepper";
-const pilot = () => {
+const pilot = ({ session }) => {
   return (
     <Layout>
       <div className="mt-8">
-        <PilotStepper />
+        <PilotStepper user={session.user} />
       </div>
     </Layout>
   );

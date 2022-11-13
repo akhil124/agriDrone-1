@@ -17,6 +17,12 @@ const pilotSchema = new Schema({
     cardCVV: String,
     cardEXP: String,
   },
+  slots: [
+    {
+      start: String,
+      end: String,
+    },
+  ],
 });
 
 const Pilots = models.pilot || model("pilot", pilotSchema);

@@ -24,7 +24,7 @@ const INITIAL_DATA = {
   cvv: "",
 };
 
-function PilotStepper() {
+function PilotStepper({ user }) {
   const router = useRouter();
   const [data, setData] = useState(INITIAL_DATA);
   const [isLoading, setIsLoading] = useState(0);
@@ -35,7 +35,7 @@ function PilotStepper() {
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <FirstStep {...data} updateFields={updateFields} />,
+      <FirstStep {...data} user={user} updateFields={updateFields} />,
       <SecondStep {...data} updateFields={updateFields} />,
       <ThirdStep {...data} updateFields={updateFields} />,
     ]);

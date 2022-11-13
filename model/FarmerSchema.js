@@ -28,15 +28,11 @@ const farmerSchema = new Schema({
       farm: String,
       farmLand: String,
       farmType: String,
-      // "flightDetails": {
-      //       "startDate": "13/11/2022",
-      //       "endDate": "20/11/2022",
-      //       "duration": 7
-      //   },
       flightDetails: {
         startDate: String,
         endDate: String,
         duration: Number,
+        pilotID: String,
       },
       selectedDrone: {
         droneID: String,

@@ -6,6 +6,7 @@ import { useState } from "react";
 import RoleSelection from "../components/RoleSelection";
 import { getSession, useSession, signOut } from "next-auth/react";
 import FarmerDashboard from "../components/Dashboard/FarmerDashboard";
+import PilotDashboard from "../components/PilotDashboard/PilotDashboard";
 
 export default function Home({ session, data }) {
   // const { data: session } = useSession();
@@ -58,6 +59,13 @@ function User({ session, handleSignOut, data }) {
         <FarmerDashboard user={data.message} />
       </>
     );
+  if (data.message.role === "pilot") {
+    return (
+      <>
+        <PilotDashboard user={data.message} />;
+      </>
+    );
+  }
   return (
     <main className="container mx-auto text-center py-20">
       <h3 className="text-4xl font-bold">Authorize User Homepage</h3>

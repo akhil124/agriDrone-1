@@ -67,6 +67,7 @@ function App() {
           )}
           <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
         </div>
+        <p>sdasd</p>
       </form>
     </div>
   );

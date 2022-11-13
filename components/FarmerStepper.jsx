@@ -11,6 +11,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { useRouter } from "next/router";
 import axios from "axios";
+import MapStep from "./farmerReg/MapStep";
 const INITIAL_DATA = {
   fullName: "",
 
@@ -44,6 +45,7 @@ function FarmerStepper() {
     useMultistepForm([
       <FirstStep {...data} updateFields={updateFields} />,
       <SecondStep {...data} updateFields={updateFields} />,
+      <MapStep />,
       <ThirdStep {...data} updateFields={updateFields} />,
       <FourthStep {...data} updateFields={updateFields} />,
     ]);
@@ -80,7 +82,7 @@ function FarmerStepper() {
     setIsLoading(false);
     router.push("/");
   }
-  const labels = ["one", "two", "three", "four"];
+  const labels = ["one", "two", "three", "four", "five"];
   return (
     <div className="">
       <form onSubmit={onSubmit}>

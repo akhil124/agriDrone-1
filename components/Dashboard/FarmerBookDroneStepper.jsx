@@ -32,6 +32,7 @@ const INITIAL_DATA = {
     startDate: "",
     endDate: "",
     duration: "",
+    pilotID: "",
   },
 };
 
