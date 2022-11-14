@@ -159,7 +159,7 @@ const StepSeven = ({ farm, farmLand, selectedDrone, flightDetails }) => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_HOST}api/pilot?pilotID=6371068b7f7017edb5859ade`
+        `${process.env.NEXT_PUBLIC_HOST}api/pilot?pilotID=63719b4a7e3ec5de6a74dfc7`
       )
       .then(({ data: message }) => {
         setPilot({ ...pilot, pilotName: message.message.fullName });

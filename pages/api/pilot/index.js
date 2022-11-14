@@ -1,6 +1,7 @@
 import connectMongo from "../../../database/conn";
 import Pilots from "../../../model/PilotSchema";
 import Slots from "../../../model/SlotSchema";
+import Users from "../../../model/Schema";
 export default async function handler(req, res) {
   const { method } = req;
   const { email } = req?.query;
@@ -25,9 +26,12 @@ export default async function handler(req, res) {
   }
   if (method === "POST") {
     const { user } = req.body;
-
     try {
       const pilot = await Pilots.create(user);
+      const newUser = await Users.findOneAndUpdate(
+        { email: pilot.email },
+        { pilotID: pilot._id }
+      );
       res.status(200).json({ success: true, message: pilot });
     } catch (e) {
       res.status(300).json({ success: false, message: e });

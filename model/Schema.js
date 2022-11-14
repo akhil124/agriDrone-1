@@ -6,6 +6,7 @@ const userSchema = new Schema({
   password: String,
   image: String,
   role: String,
+  pilotID: String,
 });
 
 const Users = models.user || model("user", userSchema);

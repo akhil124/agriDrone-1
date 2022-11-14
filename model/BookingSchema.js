@@ -2,8 +2,9 @@ import { Schema, model, models } from "mongoose";
 
 const bookingSchema = new Schema({
   email: String,
+  pilotID: String,
   booking: {
-    pilotID: String,
+    service: String,
     farmDetails: {
       farm: String,
       farmLand: String,

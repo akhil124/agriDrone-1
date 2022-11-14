@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { list } from "postcss";
 //
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -33,7 +34,7 @@ const style = {
 };
 //
 
-const Schedule = () => {
+const Schedule = ({ session, data }) => {
   const [startDateAndTime, setStartDateAndTime] = React.useState(dayjs());
   const [endDateAndTime, setEndDateAndTime] = React.useState(dayjs());
 
@@ -44,7 +45,7 @@ const Schedule = () => {
       </Head>
       <Layout>
         <div className="grid grid-cols-2 gap-8">
-          <UpComing />
+          <UpComing pilotID={data.message.pilotID} />
           <Availabitily
             start={startDateAndTime}
             setStart={setStartDateAndTime}
@@ -59,38 +60,57 @@ const Schedule = () => {
 
 export default Schedule;
 
-const UpComing = () => {
+const UpComing = ({ pilotID }) => {
+  const [bookings, setBookings] = React.useState([]);
+  React.useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_HOST}api/pilot/booking?pilotID=${pilotID}`
+      )
+      .then((res) => {
+        console.log(res.data.message);
+        setBookings(res.data.message);
+      });
+  }, []);
   return (
     <div className="p-4 rounded-lg">
       <p className="mb-4 font-semibold text-[color:var(--primary)]">
         Upcoming Flights
       </p>
-      <div className="flex gap-8  text-sm p-6 rounded-lg shadow-sm ">
-        <div className="flex-1 ">
-          <p className="font-semibold text-[color:var(--primary)]">
-            29/10/2022
-          </p>
-          <p className="font-semibold text-xs text-gray-700 mb-2"> 10:00 AM</p>
-          <p className="text-gray-600">
-            3671 Old Toll Road, Mariposa, CA 95338{" "}
-          </p>
-          <p className="text-gray-600">West Plot A Crop</p>
-        </div>
-        <div className="flex-1 flex flex-col items-end justify-start">
-          <p className="font-semibold text-[color:var(--primary)]">
-            Data Collection
-          </p>
-          <div className="relative h-[60px] w-[130px]">
-            <Image
-              className="rounded-2xl"
-              src="/assets/crop.png"
-              layout="fill"
-              objectFit="cover"
-            />
+      {bookings.map((booking) => (
+        <div className="flex gap-8  text-sm p-6 rounded-lg shadow-sm ">
+          <div className="flex-1 ">
+            <p className="font-semibold text-[color:var(--primary)]">
+              {dayjs(booking?.booking?.flightDetails?.startDate).format(
+                `DD/MM/YYYY`
+              )}
+            </p>
+            {/* <p className="font-semibold text-xs text-gray-700 mb-2">
+              {" "}
+              10:00 AM
+            </p> */}
+            <p className="text-gray-600">{booking.booking.farmDetails.farm}</p>
+            <p className="text-gray-600">
+              {booking.booking.farmDetails.farmLand}
+            </p>
+          </div>
+          <div className="flex-1 flex flex-col items-end justify-start">
+            <p className="font-semibold text-[color:var(--primary)]">
+              {booking.booking?.service}
+            </p>
+            <div className="relative h-[60px] w-[130px]">
+              <Image
+                className="rounded-2xl"
+                src="/assets/crop.png"
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      {/* <Divider /> */}
+      ))}
+
+      {/* <Divider />
       <div className="flex gap-8 text-sm p-6 rounded-lg shadow-sm  mt-4">
         <div className="flex-1 ">
           <p className="font-semibold text-[color:var(--primary)]">
@@ -115,7 +135,7 @@ const UpComing = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -279,7 +299,6 @@ export async function getServerSideProps({ req }) {
     const res = await fetch(
       `${process.env.HOST}api/user?email=${session.user.email}`
     );
-
     const data = await res.json();
 
     return {

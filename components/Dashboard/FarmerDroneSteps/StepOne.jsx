@@ -25,23 +25,24 @@ const StepOne = ({ farmLand, updateFields }) => {
               value={farmLand}
               onChange={(e) =>
                 updateFields({
+                  farm: e.target.value,
                   farmLand: e.target.value,
                   farmType: e.target.value,
                 })
               }
             >
               <FormControlLabel
-                value="West Plot A_LiveStock"
+                value="West Plot A_LiveStock_1876 Great Tessarac Road, Mariposa, CA 95613"
                 control={<Radio />}
                 label="West Plot A: LiveStock"
               />
               <FormControlLabel
-                value="West Plot B_Crop"
+                value="West Plot B_Crop_3671 Old Toll Road, Mariposa, CA 95338"
                 control={<Radio />}
                 label="West Plot B: Crop"
               />
               <FormControlLabel
-                value="North Plot B_Nursery"
+                value="North Plot B_Nursery_6564 New Toll Road, Mariposa, CA 95338"
                 control={<Radio />}
                 label="North Plot B: Nursery"
               />

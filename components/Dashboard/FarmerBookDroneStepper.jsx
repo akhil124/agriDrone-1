@@ -16,7 +16,7 @@ import StepSeven from "./FarmerDroneSteps/StepSeven";
 import { useSession } from "next-auth/react";
 
 const INITIAL_DATA = {
-  farm: "3671 Old Toll Road, Mariposa, CA 95338",
+  farm: "",
   farmLand: "",
   farmType: "",
   selectedDrone: {
@@ -32,7 +32,7 @@ const INITIAL_DATA = {
     startDate: "",
     endDate: "",
     duration: "",
-    pilotID: "6371068b7f7017edb5859ade",
+    pilotID: "63719b4a7e3ec5de6a74dfc7",
   },
 };
 
@@ -73,10 +73,10 @@ function FarmerStepper({ session }) {
       farmLand: data.farmLand.split("_")[0],
     };
     const bookingInfo = {
+      service: data.selectedDrone.service,
       flightDetails: data.flightDetails,
-      pilotID: data.flightDetails.pilotID,
       farmDetails: {
-        farm: data.farm,
+        farm: data.farm.split("_")[2],
         farmType: data.farmType.split("_")[1],
         farmLand: data.farmLand.split("_")[0],
       },
@@ -85,6 +85,7 @@ function FarmerStepper({ session }) {
       `${process.env.NEXT_PUBLIC_HOST}api/pilot/booking`,
       {
         email: session.user.email,
+        pilotID: data.flightDetails.pilotID,
         booking: bookingInfo,
       }
     );
