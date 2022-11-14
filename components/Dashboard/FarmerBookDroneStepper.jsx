@@ -14,6 +14,7 @@ import StepFive from "./FarmerDroneSteps/StepFive";
 import StepSix from "./FarmerDroneSteps/StepSix";
 import StepSeven from "./FarmerDroneSteps/StepSeven";
 import { useSession } from "next-auth/react";
+import { checkout } from "../../lib/stripe/checkout";
 
 const INITIAL_DATA = {
   farm: "",
@@ -57,14 +58,29 @@ function FarmerStepper({ session }) {
       <StepThree {...data} updateFields={updateFields} />,
       <StepFour {...data} updateFields={updateFields} />,
       <StepFive {...data} updateFields={updateFields} />,
-      <StepSix {...data} updateFields={updateFields} />,
-      <StepSeven {...data} updateFields={updateFields} />,
+      // <StepSix {...data} updateFields={updateFields} />,
+      // <StepSeven {...data} updateFields={updateFields} />,
     ]);
 
   async function onSubmit(e) {
     e.preventDefault();
     if (!isLastStep) return next();
     if (isLoading) return;
+
+    router.push("/");
+  }
+  async function onStripeSubmit(e) {
+    e.preventDefault();
+    if (!isLastStep) return next();
+    if (isLoading) return;
+    checkout({
+      lineItems: [
+        {
+          price: "price_1M40SMSFYXbhaPgGRFzG2Sbr",
+          quantity: 1,
+        },
+      ],
+    });
     setIsLoading(true);
     console.log(data.flightDetails);
     const updatedInfo = {
@@ -98,12 +114,11 @@ function FarmerStepper({ session }) {
       }
     );
     setIsLoading(false);
-    router.push("/");
   }
-  const labels = ["one", "two", "three", "four", "five", "six", "seven"];
+  const labels = ["one", "two", "three", "four", "five"];
   return (
     <div className="">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onStripeSubmit}>
         {/* <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
           {currentStepIndex + 1} / {steps.length}
         </div> */}
