@@ -7,8 +7,8 @@ const Success = () => {
     <div className="h-screen w-screen flex justify-center items-center flex-col">
       <div className="h-[500px] flex justify-center items-center flex-col gap-11">
         <h1 className="text-4xl font-bold slide-in-elliptic-top-bck">
-          Congratulation! Your payment is{" "}
-          <span className="text-green-600">Successful</span>
+          Congratulations! Your payment is{" "}
+          <span className="text-green-600">Successful.</span>
         </h1>
         <Button
           className="bg-[#1565c0]"

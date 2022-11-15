@@ -151,7 +151,7 @@ function FarmerStepper({ session }) {
             color="primary"
             type="submit"
           >
-            {isLoading ? "Booking" : isLastStep ? "Finish" : "Next"}
+            {isLoading ? "Booking" : isLastStep ? "Checkout" : "Next"}
           </Button>
         </div>
       </form>
