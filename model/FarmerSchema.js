@@ -25,6 +25,10 @@ const farmerSchema = new Schema({
   },
   bookings: [
     {
+      paid: {
+        type: Boolean,
+        default: false,
+      },
       farm: String,
       farmLand: String,
       farmType: String,

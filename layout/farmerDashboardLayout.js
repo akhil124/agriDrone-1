@@ -17,6 +17,7 @@ import Navbar from "../components/Navbar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
+import PersonIcon from "@mui/icons-material/Person";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 const drawerWidth = 240;
@@ -30,6 +31,11 @@ const Items = [
     id: 2,
     label: "Book drone service",
     url: "/dashboard/farmer/bookDrone",
+  },
+  {
+    id: 3,
+    label: "Billing",
+    url: "/dashboard/farmer/billing",
   },
 ];
 export default function ClippedDrawer({ children }) {
@@ -72,8 +78,10 @@ export default function ClippedDrawer({ children }) {
                         <WidgetsOutlinedIcon />
                       ) : item.label === "My bookings" ? (
                         <LibraryBooksOutlinedIcon />
-                      ) : (
+                      ) : item.label === "Billing" ? (
                         <MailIcon />
+                      ) : (
+                        ""
                       )}
                     </ListItemIcon>
                     <ListItemText primary={item.label} />
@@ -86,7 +94,7 @@ export default function ClippedDrawer({ children }) {
           <List>
             <ListItem disablePadding>
               <ListItemButton onClick={() => signOut()}>
-                <ListItemIcon>{<MailIcon />}</ListItemIcon>
+                <ListItemIcon>{<PersonIcon />}</ListItemIcon>
                 <ListItemText primary={"Logout"} />
               </ListItemButton>
             </ListItem>

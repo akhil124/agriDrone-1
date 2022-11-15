@@ -25,4 +25,24 @@ export default async function handler(req, res) {
       res.status(300).json({ success: false, message: e });
     }
   }
+  if (method === "PUT") {
+    const { email, id } = req.body;
+    try {
+      const updatePayment = await Farmers.findOneAndUpdate(
+        {
+          email: email,
+        },
+        {
+          $set: { "bookings.$[el].paid": true },
+        },
+        {
+          arrayFilters: [{ "el._id": id }],
+          new: true,
+        }
+      );
+      res.status(200).json({ success: true, message: updatePayment });
+    } catch (e) {
+      res.status(300).json({ success: false, message: e });
+    }
+  }
 }

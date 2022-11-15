@@ -22,7 +22,6 @@ function MyComponent({ lat, lng }) {
   useEffect(() => {
     setCenter({ ...center, lat: lat, lng: lng });
     setPosition({ ...center, lat: lat, lng: lng });
-    console.log(center, position);
   }, [lat, lng]);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -31,12 +30,8 @@ function MyComponent({ lat, lng }) {
   });
 
   const [map, setMap] = React.useState(null);
-  const handleOnPlaceChanged = (e) => {
-    console.log(e, "Changed");
-  };
+  const handleOnPlaceChanged = (e) => {};
   const onLoad = React.useCallback(function callback(map) {
-    console.log(map, "MAP");
-
     setMap(map);
   }, []);
 

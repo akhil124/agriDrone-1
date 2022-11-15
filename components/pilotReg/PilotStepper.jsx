@@ -25,7 +25,6 @@ const INITIAL_DATA = {
 };
 
 function PilotStepper({ user }) {
-  console.log(user);
   const router = useRouter();
   const [data, setData] = useState({
     ...INITIAL_DATA,

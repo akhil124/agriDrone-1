@@ -15,7 +15,6 @@ export default async function handler(req, res) {
   }
   if (method === "POST") {
     const { email, booking } = req.body;
-    console.log(req.body, "BODY");
     try {
       const booking = await Bookings.create(req.body);
       res.status(200).json({ success: true, message: booking });

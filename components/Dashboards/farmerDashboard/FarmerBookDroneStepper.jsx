@@ -59,27 +59,19 @@ function FarmerStepper({ session }) {
       // <StepSeven {...data} updateFields={updateFields} />,
     ]);
 
-  async function onSubmit(e) {
-    e.preventDefault();
-    if (!isLastStep) return next();
-    if (isLoading) return;
+  // async function onSubmit(e) {
+  //   e.preventDefault();
+  //   if (!isLastStep) return next();
+  //   if (isLoading) return;
 
-    router.push("/");
-  }
+  //   router.push("/");
+  // }
   async function onStripeSubmit(e) {
     e.preventDefault();
     if (!isLastStep) return next();
     if (isLoading) return;
-    checkout({
-      lineItems: [
-        {
-          price: "price_1M40SMSFYXbhaPgGRFzG2Sbr",
-          quantity: 1,
-        },
-      ],
-    });
+
     setIsLoading(true);
-    console.log(data.flightDetails);
     const updatedInfo = {
       ...data,
       farmType: data.farmType.split("_")[1],
@@ -111,6 +103,7 @@ function FarmerStepper({ session }) {
       }
     );
     setIsLoading(false);
+    router.push("/order/success");
   }
   const labels = ["one", "two", "three", "four", "five"];
   return (

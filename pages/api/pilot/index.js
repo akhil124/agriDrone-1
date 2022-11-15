@@ -42,7 +42,6 @@ export default async function handler(req, res) {
 
     try {
       const pilot = await Pilots.findOne({ email: email });
-      console.log(email, pilot);
       const createSlot = await Slots.create({ pilotID: pilot._id, ...slot });
       res.status(200).json({ success: true, message: createSlot });
     } catch (e) {

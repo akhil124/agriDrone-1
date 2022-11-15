@@ -23,6 +23,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import axios from "axios";
 import dayjs from "dayjs";
+import { checkout } from "../../../../lib/stripe/checkout";
 
 function createData(
   serviceID,
@@ -30,7 +31,7 @@ function createData(
   landType,
   service,
   serviceTime,
-  status
+  payment
 ) {
   return {
     serviceID,
@@ -38,7 +39,7 @@ function createData(
     landType,
     service,
     serviceTime,
-    status,
+    payment,
   };
 }
 
@@ -139,11 +140,12 @@ const headCells = [
     disablePadding: false,
     label: "Service Time",
   },
+
   {
-    id: "status",
+    id: "payment",
     numeric: false,
     disablePadding: false,
-    label: "Status",
+    label: "Payment",
   },
 ];
 
@@ -282,21 +284,17 @@ export default function EnhancedTable({ user }) {
       .get(
         `${process.env.NEXT_PUBLIC_HOST}api/farmer/bookDrone?email=${user.email}`
       )
-      .then((res) => setData(res.data.message));
+      .then((res) => setData(res.data.message.filter((item) => !item.paid)));
   }, []);
 
   const fetchedRows = data.map((order) => {
     return createData(
-      `ID #${order._id.slice(-4)}`,
+      `${order._id}`,
       order.farmLand,
       order?.farmType,
       order?.selectedDrone?.service,
       dayjs(order?.flightDetails?.startDate).format("DD/MM/YYYY"),
-      dayjs(order.flightDetails.startDate) > dayjs()
-        ? "booked"
-        : dayjs(order.flightDetails.endDate) < dayjs()
-        ? "finished"
-        : "active"
+      order.paid
     );
   });
   // {
@@ -352,6 +350,20 @@ export default function EnhancedTable({ user }) {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
+  const handleOnPay = async (email, id) => {
+    const update = checkout({
+      lineItems: [{ price: "price_1M40SMSFYXbhaPgGRFzG2Sbr", quantity: 1 }],
+    });
+    const updatedPayment = await axios.put(
+      `${process.env.NEXT_PUBLIC_HOST}api/farmer/bookDrone?email=${user.email}`,
+      {
+        email: email,
+        id: id,
+      }
+    );
+    // console.log(update, "UPDATE");
+  };
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -386,7 +398,7 @@ export default function EnhancedTable({ user }) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      //   onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -414,21 +426,21 @@ export default function EnhancedTable({ user }) {
                       <TableCell align="left">{row.landType}</TableCell>
                       <TableCell align="left">{row.service}</TableCell>
                       <TableCell align="left">{row.serviceTime}</TableCell>
+
                       <TableCell align="left">
                         <p
+                          onClick={() => {
+                            if (!row.payment) {
+                              handleOnPay(user.email, row.serviceID);
+                            }
+                          }}
                           className={`${
-                            row.status === "active"
+                            row.payment
                               ? "bg-green-300 border border-green-800 text-green-900"
-                              : row.status === "booked"
-                              ? "bg-red-300 border border-red-800 text-red-900 "
-                              : "bg-blue-300 border border-blue-800 text-blue-900"
+                              : "bg-blue-600 text-blue-100 hover:text-blue-300 cursor-pointer"
                           } text-center  rounded-md px-3 py-1`}
                         >
-                          {row.status === "active"
-                            ? "Active"
-                            : row.status === "booked"
-                            ? "Booked"
-                            : "Finished"}
+                          {row.payment ? "Paid" : "Pay now"}
                         </p>
                       </TableCell>
                     </TableRow>

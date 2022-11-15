@@ -24,7 +24,6 @@ export default function Register() {
   });
 
   async function onSubmit(values) {
-    console.log(values);
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,7 +33,6 @@ export default function Register() {
     await fetch("http://localhost:3000/api/auth/signup", options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status) router.push("/");
       });
   }

@@ -11,7 +11,6 @@ export default function FirstStep({
   updateFields,
 }) {
   const isError = () => false;
-  console.log(email);
   return (
     <>
       <h2 className="text-3xl text-[color:var(--primary)] font-semibold mb-4">

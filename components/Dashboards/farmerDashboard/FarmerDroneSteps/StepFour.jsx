@@ -14,7 +14,7 @@ const StepFour = ({
         Step 4: Selected Drone
       </h1>
       <p className="text-md text-gray-600 mt-4">This is your selected Drone</p>
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-8">
         <div className="mt-8 max-w-sm flex-1">
           <p className="mb-6 text-xl font-semibold text-[color:var(--primary)]">
             Drone Information

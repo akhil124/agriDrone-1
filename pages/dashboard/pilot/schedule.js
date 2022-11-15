@@ -68,7 +68,6 @@ const UpComing = ({ pilotID }) => {
         `${process.env.NEXT_PUBLIC_HOST}api/pilot/booking?pilotID=${pilotID}`
       )
       .then((res) => {
-        console.log(res.data.message);
         setBookings(res.data.message);
       });
   }, []);

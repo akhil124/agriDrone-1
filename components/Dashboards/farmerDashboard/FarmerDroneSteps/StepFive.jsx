@@ -164,7 +164,6 @@ const StepFive = ({ farm, farmLand, selectedDrone, flightDetails }) => {
         `${process.env.NEXT_PUBLIC_HOST}api/pilot?pilotID=${flightDetails.pilotID}`
       )
       .then(({ data: message }) => {
-        console.log(message, "MESSAGE");
         setPilot({
           ...pilot,
           pilotName: message.message.fullName,
