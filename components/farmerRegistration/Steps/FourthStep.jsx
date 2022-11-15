@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
-import { AppContext } from "../Context";
+import { AppContext } from "../../Context";
 
 export default function SecondStep({
   fullName,
@@ -61,12 +61,6 @@ export default function SecondStep({
         </p>
         <p className="text-lg mb-2">
           Address: <span className="text-md font-normal">{farmAddress}</span>
-        </p>
-        <p className="text-lg mb-2">
-          City: <span className="text-md font-normal">{farmCity}</span>
-        </p>
-        <p className="text-lg mb-2">
-          Country: <span className="text-md font-normal">{farmCountry}</span>
         </p>
       </div>
       <div className="text-2xl text-[color:var(--primary)] font-semibold mb-10">

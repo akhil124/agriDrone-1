@@ -1,8 +1,8 @@
 import React from "react";
-import MyMapComponent from "../Maps/Map";
+import MyMapComponent from "../../Maps/Map";
 const MapStep = ({ lat, lng, updateFields }) => {
   return (
-    <div className="border border-red-500 flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <MyMapComponent lat={lat} lng={lng} />
     </div>
   );

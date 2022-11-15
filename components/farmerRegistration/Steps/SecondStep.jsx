@@ -6,16 +6,13 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
-import { AppContext } from "../Context";
+import { AppContext } from "../../Context";
 import AutoComplete from "react-google-autocomplete";
 
 export default function SecondStep({
   farmName,
   farmLandType,
   farmAddress,
-  farmCity,
-  farmCountry,
-  farmZipCode,
   updateFields,
 }) {
   const isError = () => false;
@@ -74,6 +71,7 @@ export default function SecondStep({
             apiKey="AIzaSyDYARwqk_ZEV99JlO9saOfbNNV7Bd3_EJE"
             onPlaceSelected={(place) => {
               updateFields({
+                farmAddress: place.formatted_address,
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng(),
               });

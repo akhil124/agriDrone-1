@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 import Layout from "../layout/navbarLayout";
-import styles from "../styles/Form.module.css";
 import { getSession } from "next-auth/react";
-import FarmerInfoForm from "../components/FarmerInfoForm";
-import FarmerStepper from "../components/FarmerStepper";
-import axios from "axios";
+import FarmerStepper from "../components/farmerRegistration/FarmerStepper";
+import Head from "next/head";
 const farmer = ({ data }) => {
   return (
-    <Layout>
-      <div className="mt-8">
-        <FarmerStepper />
-      </div>
-    </Layout>
+    <>
+      <Head>
+        <title>Farmer Registration</title>
+      </Head>
+      <Layout>
+        <div className="mt-8">
+          <FarmerStepper user={data.message} />
+        </div>
+      </Layout>
+    </>
   );
 };
 

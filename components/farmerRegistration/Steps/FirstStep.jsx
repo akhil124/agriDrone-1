@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { AppContext } from "../Context";
+import { AppContext } from "../../Context";
 
 export default function FirstStep({
   fullName,
@@ -14,7 +14,7 @@ export default function FirstStep({
   updateFields,
 }) {
   const isError = () => false;
-
+  console.log(email);
   return (
     <>
       <h2 className="text-3xl text-[color:var(--primary)] font-semibold mb-4">
@@ -30,10 +30,11 @@ export default function FirstStep({
             // variant={variant}
             // margin={margin}
             fullWidth
-            label="Full Name"
+            InputProps={{
+              readOnly: true,
+            }}
             name="fullName"
-            placeholder="Your first name"
-            value={fullName.value}
+            value={fullName}
             onChange={(e) => updateFields({ fullName: e.target.value })}
             error={!!fullName.error}
             helperText={fullName.error}
@@ -46,11 +47,14 @@ export default function FirstStep({
             // variant={variant}
             // margin={margin}
             fullWidth
-            label="Email"
+            // label="Email"
+            InputProps={{
+              readOnly: true,
+            }}
             name="email"
-            placeholder="Your email address"
+            // placeholder="Your email address"
             type="email"
-            value={email.value}
+            value={email}
             onChange={(e) => updateFields({ email: e.target.value })}
             error={!!email.error}
             helperText={email.error}

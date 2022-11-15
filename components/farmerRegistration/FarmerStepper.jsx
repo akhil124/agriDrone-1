@@ -1,17 +1,17 @@
 import { Button } from "@mui/material";
 import { FormEvent, useEffect, useState } from "react";
-import FirstStep from "../components/farmerReg/FirstStep";
-import SecondStep from "../components/farmerReg/SecondStep";
-import ThirdStep from "../components/farmerReg/ThirdStep";
-import FourthStep from "../components/farmerReg/FourthStep";
-import { useMultistepForm } from "../hooks/useMultiForm";
-import initiaalValues from "../lib/initialValues";
+import FirstStep from "./Steps/FirstStep";
+import SecondStep from "./Steps/SecondStep";
+import ThirdStep from "./Steps/ThirdStep";
+import FourthStep from "./Steps/FourthStep";
+import { useMultistepForm } from "../../hooks/useMultiForm";
+import initiaalValues from "../../lib/initialValues";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { useRouter } from "next/router";
 import axios from "axios";
-import MapStep from "./farmerReg/MapStep";
+import MapStep from "./Steps/MapStep";
 const INITIAL_DATA = {
   fullName: "",
 
@@ -25,9 +25,7 @@ const INITIAL_DATA = {
   lat: "",
   lng: "",
 
-  farmCity: "",
-  farmCountry: "",
-  farmZipCode: "",
+  farmAddress: "",
   farmLandType: "",
   cardName: "",
   cardNumber: "",
@@ -35,9 +33,13 @@ const INITIAL_DATA = {
   cvv: "",
 };
 
-function FarmerStepper() {
+function FarmerStepper({ user }) {
   const router = useRouter();
-  const [data, setData] = useState(INITIAL_DATA);
+  const [data, setData] = useState({
+    ...INITIAL_DATA,
+    email: user.email,
+    fullName: user.name,
+  });
   const [isLoading, setIsLoading] = useState(0);
   function updateFields(fields) {
     setData((prev) => {
