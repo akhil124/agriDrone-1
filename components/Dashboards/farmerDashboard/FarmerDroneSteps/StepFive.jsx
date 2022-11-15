@@ -33,6 +33,7 @@ const Card = ({ Title, Service, ImageUrl, Farm, FarmLand, FlightDetails }) => {
 };
 const PilotCard = ({
   name,
+  pilotPhoneNumber,
   Service,
   ImageUrl,
   Farm,
@@ -56,7 +57,7 @@ const PilotCard = ({
         </div>
         <div className="text-gray-500 mt-2">
           <p>License #: FA123G4567</p>
-          <p>Phone: 1234567890</p>
+          <p>Phone: {pilotPhoneNumber}</p>
           <p>Address: 2200 10th Street, Plano, TX 75074</p>
         </div>
       </div>
@@ -160,11 +161,15 @@ const StepFive = ({ farm, farmLand, selectedDrone, flightDetails }) => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_HOST}api/pilot?pilotID=63719b4a7e3ec5de6a74dfc7`
+        `${process.env.NEXT_PUBLIC_HOST}api/pilot?pilotID=${flightDetails.pilotID}`
       )
       .then(({ data: message }) => {
         console.log(message, "MESSAGE");
-        setPilot({ ...pilot, pilotName: message.message.fullName });
+        setPilot({
+          ...pilot,
+          pilotName: message.message.fullName,
+          pilotPhoneNumber: message.message.phoneNumber,
+        });
       });
   }, []);
   return (
@@ -189,7 +194,11 @@ const StepFive = ({ farm, farmLand, selectedDrone, flightDetails }) => {
           FlightDetails={flightDetails}
         />
 
-        <PilotCard ImageUrl={"/assets/pilot-1.jpg"} name={pilot.pilotName} />
+        <PilotCard
+          ImageUrl={"/assets/pilot-1.jpg"}
+          name={pilot.pilotName}
+          pilotPhoneNumber={pilot.pilotPhoneNumber}
+        />
 
         {/* <Card /> */}
       </div>

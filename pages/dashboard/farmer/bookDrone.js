@@ -1,7 +1,7 @@
 import React from "react";
 import { getSession } from "next-auth/react";
 import Layout from "../../../layout/farmerDashboardLayout";
-import FarmerBookDroneStepper from "../../../components/Dashboard/FarmerBookDroneStepper";
+import FarmerBookDroneStepper from "../../../components/Dashboards/farmerDashboard/FarmerBookDroneStepper";
 import Head from "next/head";
 const bookDrone = ({ session }) => {
   return (

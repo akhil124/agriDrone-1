@@ -14,16 +14,17 @@ export default function Register() {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      username: "",
+      name: "",
       email: "",
       password: "",
       cpassword: "",
     },
-    validate: registerValidate,
+    // validate: registerValidate,
     onSubmit,
   });
 
   async function onSubmit(values) {
+    console.log(values);
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,7 +34,8 @@ export default function Register() {
     await fetch("http://localhost:3000/api/auth/signup", options)
       .then((res) => res.json())
       .then((data) => {
-        if (data) router.push("http://localhost:3000");
+        console.log(data);
+        if (data.status) router.push("/");
       });
   }
 
@@ -46,7 +48,7 @@ export default function Register() {
       <section className="w-3/4 mx-auto flex flex-col gap-10">
         <div className="title">
           <h1 className="text-gray-800 text-4xl font-bold py-4 text-left">
-            Register
+            Registers
           </h1>
         </div>
 
@@ -54,17 +56,15 @@ export default function Register() {
         <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
           <div
             className={`${styles.input_group} ${
-              formik.errors.username && formik.touched.username
-                ? "border-rose-600"
-                : ""
+              formik.errors.name && formik.touched.name ? "border-rose-600" : ""
             }`}
           >
             <input
               type="text"
-              name="Username"
+              name="Full Name"
               placeholder="Full Name"
               className={styles.input_text}
-              {...formik.getFieldProps("username")}
+              {...formik.getFieldProps("name")}
             />
             <span className="icon flex items-center px-4">
               <HiUser size={25} />

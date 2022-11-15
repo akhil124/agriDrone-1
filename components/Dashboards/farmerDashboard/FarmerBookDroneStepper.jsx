@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
-import { FormEvent, useEffect, useState } from "react";
-import { useMultistepForm } from "../../hooks/useMultiForm";
+import { useState } from "react";
+import { useMultistepForm } from "../../../hooks/useMultiForm";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -11,10 +11,7 @@ import StepTwo from "./FarmerDroneSteps/StepTwo";
 import StepThree from "./FarmerDroneSteps/StepThree";
 import StepFour from "./FarmerDroneSteps/StepFour";
 import StepFive from "./FarmerDroneSteps/StepFive";
-import StepSix from "./FarmerDroneSteps/StepSix";
-import StepSeven from "./FarmerDroneSteps/StepSeven";
-import { useSession } from "next-auth/react";
-import { checkout } from "../../lib/stripe/checkout";
+import { checkout } from "../../../lib/stripe/checkout";
 
 const INITIAL_DATA = {
   farm: "",
@@ -33,7 +30,7 @@ const INITIAL_DATA = {
     startDate: "",
     endDate: "",
     duration: "",
-    pilotID: "63719b4a7e3ec5de6a74dfc7",
+    pilotID: "6373b63a7ff509ddf4469f90",
   },
 };
 

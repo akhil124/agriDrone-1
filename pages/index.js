@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 import RoleSelection from "../components/RoleSelection";
 import { getSession, useSession, signOut } from "next-auth/react";
-import FarmerDashboard from "../components/Dashboard/FarmerDashboard";
-import PilotDashboard from "../components/PilotDashboard/PilotDashboard";
+import FarmerDashboard from "../components/Dashboards/farmerDashboard/FarmerDashboard";
+import PilotDashboard from "../components/Dashboards/PilotDashboard/PilotDashboard";
 
 export default function Home({ session, data }) {
   // const { data: session } = useSession();

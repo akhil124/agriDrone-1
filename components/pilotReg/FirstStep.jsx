@@ -1,9 +1,6 @@
-import React, { useCallback, useContext } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { AppContext } from "../Context";
 
 export default function FirstStep({
   fullName,
@@ -30,10 +27,12 @@ export default function FirstStep({
             // variant={variant}
             // margin={margin}
             fullWidth
-            label="Full Name"
             name="fullName"
             placeholder="Your first name"
-            value={fullName.value}
+            value={fullName}
+            InputProps={{
+              readOnly: true,
+            }}
             onChange={(e) => updateFields({ fullName: e.target.value })}
             error={!!fullName.error}
             helperText={fullName.error}
@@ -46,11 +45,13 @@ export default function FirstStep({
             // variant={variant}
             // margin={margin}
             fullWidth
-            label="Email"
             name="email"
             placeholder="Your email address"
             type="email"
-            value={email.value}
+            InputProps={{
+              readOnly: true,
+            }}
+            value={email}
             onChange={(e) => updateFields({ email: e.target.value })}
             error={!!email.error}
             helperText={email.error}

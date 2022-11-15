@@ -14,7 +14,7 @@ const FarmerDashBoardWelcome = ({ user, text, url }) => {
             : "Check the status of your drone service bookings here."}
         </p>
       </section>
-      <div className="relative w-[180px] h-[180px] rounded-full">
+      <div className="relative w-[100px] h-[100px] rounded-full">
         <Image
           className="rounded-full"
           src={url ? url : `/assets/farmer.png`}

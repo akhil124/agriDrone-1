@@ -5,7 +5,6 @@ import SecondStep from "./Steps/SecondStep";
 import ThirdStep from "./Steps/ThirdStep";
 import FourthStep from "./Steps/FourthStep";
 import { useMultistepForm } from "../../hooks/useMultiForm";
-import initiaalValues from "../../lib/initialValues";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";

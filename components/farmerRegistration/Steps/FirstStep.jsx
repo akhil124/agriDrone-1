@@ -1,9 +1,6 @@
-import React, { useCallback, useContext } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { AppContext } from "../../Context";
 
 export default function FirstStep({
   fullName,
