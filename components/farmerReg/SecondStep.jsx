@@ -7,6 +7,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
 import { AppContext } from "../Context";
+import AutoComplete from "react-google-autocomplete";
 
 export default function SecondStep({
   farmName,
@@ -67,7 +68,18 @@ export default function SecondStep({
           </TextField>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
+          <AutoComplete
+            placeholder="Farm Address"
+            className="px-[14px] py-[16.5px] border w-full rounded-sm"
+            apiKey="AIzaSyDYARwqk_ZEV99JlO9saOfbNNV7Bd3_EJE"
+            onPlaceSelected={(place) => {
+              updateFields({
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+              });
+            }}
+          />
+          {/* <TextField
             // variant={variant}
             // margin={margin}
             fullWidth
@@ -78,43 +90,7 @@ export default function SecondStep({
             error={!!farmAddress.error}
             helperText={farmAddress.error}
             required={farmAddress.required}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="City"
-            name="farmCity"
-            value={farmCity.value}
-            onChange={(e) => updateFields({ farmCity: e.target.value })}
-            error={!!farmCity.error}
-            helperText={farmCity.error}
-            required={farmCity.required}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Country"
-            name="farmCountry"
-            value={farmCountry.value}
-            onChange={(e) => updateFields({ farmCountry: e.target.value })}
-            error={!!farmCountry.error}
-            helperText={farmCountry.error}
-            required={farmCountry.required}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Zip Code"
-            name="farmZipCode"
-            value={farmZipCode.value}
-            onChange={(e) => updateFields({ farmZipCode: e.target.value })}
-            error={!!farmZipCode.error}
-            helperText={farmZipCode.error}
-            required={farmZipCode.required}
-          />
+          /> */}
         </Grid>
       </Grid>
     </>

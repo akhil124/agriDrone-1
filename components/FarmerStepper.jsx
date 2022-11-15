@@ -21,7 +21,10 @@ const INITIAL_DATA = {
   birthday: "",
   // step 2
   farmName: "",
-  farmAddress: "",
+
+  lat: "",
+  lng: "",
+
   farmCity: "",
   farmCountry: "",
   farmZipCode: "",
@@ -45,7 +48,7 @@ function FarmerStepper() {
     useMultistepForm([
       <FirstStep {...data} updateFields={updateFields} />,
       <SecondStep {...data} updateFields={updateFields} />,
-      <MapStep />,
+      <MapStep {...data} updateFields={updateFields} />,
       <ThirdStep {...data} updateFields={updateFields} />,
       <FourthStep {...data} updateFields={updateFields} />,
     ]);
