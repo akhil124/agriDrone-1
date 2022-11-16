@@ -8,7 +8,7 @@ const containerStyle = {
   height: "500px",
 };
 
-function MyComponent({ lat, lng }) {
+function MyComponent({ lat, lng, updateFields }) {
   const [lati, setLati] = useState(lat);
   const [lngi, setLngi] = useState(lng);
   const [center, setCenter] = useState({
@@ -76,7 +76,13 @@ function MyComponent({ lat, lng }) {
         />
       </Autocomplete>
     <Marker position={position} /> */}
-        <Marker position={position} />
+        <Marker
+          draggable={true}
+          onDragEnd={(e) =>
+            updateFields({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+          }
+          position={position}
+        />
       </GoogleMap>
     </div>
   ) : (

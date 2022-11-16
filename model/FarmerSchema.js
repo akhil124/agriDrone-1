@@ -16,6 +16,10 @@ const farmerSchema = new Schema({
     country: String,
     zipCode: String,
     plotType: String,
+    location: {
+      lat: String,
+      lng: String,
+    },
   },
   cardInfo: {
     cardName: String,

@@ -39,6 +39,9 @@ function FarmerStepper({ user }) {
     email: user.email,
     fullName: user.name,
   });
+  useEffect(() => {
+    console.log(data, "DATA");
+  }, [data]);
   const [isLoading, setIsLoading] = useState(0);
   function updateFields(fields) {
     setData((prev) => {
@@ -72,6 +75,10 @@ function FarmerStepper({ user }) {
         country: data.farmCountry,
         zipCode: data.farmZipCode,
         farmLandType: data.farmLandType,
+        location: {
+          lat: data.lat,
+          lng: data.lng,
+        },
       },
       cardInfo: {
         name: data.cardName,
