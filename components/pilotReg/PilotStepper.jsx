@@ -39,9 +39,14 @@ function PilotStepper({ user }) {
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <FirstStep {...data} user={user} updateFields={updateFields} />,
-      <SecondStep {...data} updateFields={updateFields} />,
-      <ThirdStep {...data} updateFields={updateFields} />,
+      <FirstStep
+        key={"ones"}
+        {...data}
+        user={user}
+        updateFields={updateFields}
+      />,
+      <SecondStep key={"twos"} {...data} updateFields={updateFields} />,
+      <ThirdStep key={"threes"} {...data} updateFields={updateFields} />,
     ]);
 
   async function onSubmit(e) {

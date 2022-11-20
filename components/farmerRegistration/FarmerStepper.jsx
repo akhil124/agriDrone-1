@@ -50,11 +50,11 @@ function FarmerStepper({ user }) {
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <FirstStep {...data} updateFields={updateFields} />,
-      <SecondStep {...data} updateFields={updateFields} />,
-      <MapStep {...data} updateFields={updateFields} />,
-      <ThirdStep {...data} updateFields={updateFields} />,
-      <FourthStep {...data} updateFields={updateFields} />,
+      <FirstStep key={"one"} {...data} updateFields={updateFields} />,
+      <SecondStep key={"two"} {...data} updateFields={updateFields} />,
+      <MapStep key={"three"} {...data} updateFields={updateFields} />,
+      <ThirdStep key={"four"} {...data} updateFields={updateFields} />,
+      <FourthStep key={"five"} {...data} updateFields={updateFields} />,
     ]);
 
   async function onSubmit(e) {

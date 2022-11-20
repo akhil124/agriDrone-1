@@ -76,8 +76,11 @@ const UpComing = ({ pilotID }) => {
       <p className="mb-4 font-semibold text-[color:var(--primary)]">
         Upcoming Flights
       </p>
-      {bookings.map((booking) => (
-        <div className="flex gap-8  text-sm p-6 rounded-lg shadow-sm ">
+      {bookings.map((booking, index) => (
+        <div
+          key={index}
+          className="flex gap-8  text-sm p-6 rounded-lg shadow-sm "
+        >
           <div className="flex-1 ">
             <p className="font-semibold text-[color:var(--primary)]">
               {dayjs(booking?.booking?.flightDetails?.startDate).format(
@@ -158,8 +161,11 @@ const Availabitily = (props) => {
       </p>
       <div>
         <div>
-          {slots.map((slot) => (
-            <div className="border p-6 rounded-lg my-4 font-semibold text-[color:var(--primary)] text-normal">
+          {slots.map((slot, index) => (
+            <div
+              key={index}
+              className="border p-6 rounded-lg my-4 font-semibold text-[color:var(--primary)] text-normal"
+            >
               <p>
                 {dayjs(slot.start).format("DD/MM/YYYY")} -{" "}
                 {dayjs(slot.end).format("DD/MM/YYYY")}

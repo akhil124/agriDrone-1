@@ -126,7 +126,7 @@ export default function Login() {
 
         {/* bottom */}
         <p className="text-center text-gray-400 ">
-          Don't have an account yet?{" "}
+          Don`&apos;`t have an account yet?{" "}
           <Link href={"/register"}>
             <a className="text-blue-700">Sign Up</a>
           </Link>

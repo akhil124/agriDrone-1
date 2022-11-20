@@ -50,11 +50,16 @@ function FarmerStepper({ session }) {
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <StepOne {...data} updateFields={updateFields} />,
-      <StepTwo {...data} updateFields={updateFields} session={session} />,
-      <StepThree {...data} updateFields={updateFields} />,
-      <StepFour {...data} updateFields={updateFields} />,
-      <StepFive {...data} updateFields={updateFields} />,
+      <StepOne key={"one"} {...data} updateFields={updateFields} />,
+      <StepTwo
+        key={"two"}
+        {...data}
+        updateFields={updateFields}
+        session={session}
+      />,
+      <StepThree key={"three"} {...data} updateFields={updateFields} />,
+      <StepFour key={"four"} {...data} updateFields={updateFields} />,
+      <StepFive key={"five"} {...data} updateFields={updateFields} />,
       // <StepSix {...data} updateFields={updateFields} />,
       // <StepSeven {...data} updateFields={updateFields} />,
     ]);
