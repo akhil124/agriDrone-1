@@ -7,7 +7,7 @@ import RoleSelection from "../components/RoleSelection";
 import { getSession, useSession, signOut } from "next-auth/react";
 import FarmerDashboard from "../components/Dashboards/farmerDashboard/FarmerDashboard";
 import PilotDashboard from "../components/Dashboards/PilotDashboard/PilotDashboard";
-
+import AdminDashboard from "../components/Dashboards/adminDashboard/AdminDashboard";
 export default function Home({ session, data }) {
   // const { data: session } = useSession();
 
@@ -65,6 +65,9 @@ function User({ session, handleSignOut, data }) {
         <PilotDashboard user={data.message} />;
       </>
     );
+  }
+  if (data.message.role === "admin") {
+    return <AdminDashboard user={data.message} />;
   }
   return (
     <main className="container mx-auto text-center py-20">

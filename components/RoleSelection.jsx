@@ -25,7 +25,7 @@ const RoleSelection = ({ session, data }) => {
     <Layout>
       <div className="">
         <h2 className="text-3xl font-semibold primary">
-          Welcome! Let`&apos;`s finish your registration
+          Welcome! Let&apos;s finish your registration
         </h2>
         <div className="flex items-center flex-col mt-10">
           <h3 className="text-2xl primary font-semibold">
