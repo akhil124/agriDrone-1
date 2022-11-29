@@ -20,12 +20,17 @@ import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-const drawerWidth = 240;
+const drawerWidth = 300;
 const Items = [
   {
     id: 1,
     label: "Drone Catalog",
     url: "/",
+  },
+  {
+    id: 2,
+    label: "Drone Cloud Tracking",
+    url: "/admin/cloudTracking",
   },
 ];
 export default function ClippedDrawer({ children }) {
@@ -64,7 +69,7 @@ export default function ClippedDrawer({ children }) {
                     <ListItemIcon>
                       {item.label === "Drone Catalog" ? (
                         <SettingsIcon />
-                      ) : item.label === "Book drone service" ? (
+                      ) : item.label === "Drone Cloud Tracking" ? (
                         <WidgetsOutlinedIcon />
                       ) : item.label === "My bookings" ? (
                         <LibraryBooksOutlinedIcon />

@@ -61,7 +61,7 @@ const Index = () => {
   return (
     <div className="w-[95%] m-auto max-w-7xl mt-4">
       <Heading />
-      <div className=" grid grid-cols-2 2xl:grid-cols-5 gap-7 mt-6">
+      <div className=" grid grid-cols-2 2xl:grid-cols-5 mt-6">
         <div className="col-span-3">
           <Stats droneData={droneData} />
         </div>
