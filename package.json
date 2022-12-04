@@ -35,6 +35,8 @@
     "react-google-maps": "9.4.5",
     "react-hook-form": "^7.39.3",
     "react-icons": "^4.4.0",
+    "react-minimal-pie-chart": "^8.4.0",
+    "recharts": "^2.1.16",
     "recompose": "^0.26.0",
     "timeslot-availability": "^1.0.2"
   },

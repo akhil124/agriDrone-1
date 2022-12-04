@@ -1,23 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Chip } from "@mui/material";
-const getDrones = async () => {};
-function getFrequencies(arr) {
-  let obj = {};
-  for (let i = 0; i < arr.length; i++) {
-    let element = arr[i];
-    if (obj[element] !== undefined) {
-      obj[element] += 1;
-      console.log(obj, "in if");
-    } else {
-      obj[element] === 1;
-      console.log(obj, "in else");
-    }
-  }
-  return obj;
-}
+// import { PieChart } from "react-minimal-pie-chart";
+import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts";
+
 const Index = () => {
+  const [pieChartData, setPieChartData] = useState([]);
   const [droneData, setDroneData] = useState({
+    fetched: false,
     total: 0,
     status: {
       active: 0,
@@ -34,9 +24,9 @@ const Index = () => {
         "http://ec2-52-203-10-77.compute-1.amazonaws.com/flight_data_collect/get-drones/"
       )
       .then(({ data }) => {
-        console.log(data, "DATA");
         setDroneData({
           ...droneData,
+          fetched: true,
           total: data.length,
           models: [
             ...new Set(
@@ -56,14 +46,32 @@ const Index = () => {
       });
   }, []);
   useEffect(() => {
-    console.log(droneData, "DRONE DATA");
+    if (droneData.fetched) {
+      setPieChartData([
+        // { name: "active", value: droneData.status.active, color: "#EC6B56" },
+        // { name: "stopped", value: droneData.status.stopped, color: "#FFC154" },
+        {
+          name: "connected",
+          value: droneData.status.connected,
+          color: "#47B39C",
+        },
+        {
+          name: "registered",
+          value: droneData.status.registered,
+          color: "#47B39C",
+        },
+      ]);
+    }
   }, [droneData]);
+  useEffect(() => {
+    console.log(pieChartData, droneData, "piechartdata");
+  }, [pieChartData, droneData]);
   return (
     <div className="w-[95%] m-auto max-w-7xl mt-4">
       <Heading />
-      <div className=" grid grid-cols-2 2xl:grid-cols-5 mt-6">
+      <div className=" grid grid-cols-2 2xl:grid-cols-5 mt-6 gap-4">
         <div className="col-span-3">
-          <Stats droneData={droneData} />
+          <Stats pieChartData={pieChartData} droneData={droneData} />
         </div>
         <div className="col-span-2">
           <ServiceStats droneData={droneData} />
@@ -85,13 +93,29 @@ const Heading = () => {
     </div>
   );
 };
-const Stats = ({ droneData }) => {
+const Stats = ({ droneData, pieChartData }) => {
+  const data01 = [
+    { name: "Group A", value: 400 },
+    { name: "Group B", value: 300 },
+    { name: "Group C", value: 300 },
+    { name: "Group D", value: 200 },
+    { name: "Group E", value: 278 },
+    { name: "Group F", value: 189 },
+  ];
+  const data02 = [
+    { name: "Group A", value: 2400 },
+    { name: "Group B", value: 4567 },
+    { name: "Group C", value: 1398 },
+    { name: "Group D", value: 9800 },
+    { name: "Group E", value: 3908 },
+    { name: "Group F", value: 4800 },
+  ];
   return (
     <div className="max-w-2xl p-8 shadow-lg bg-white rounded-2xl">
       <h1 className="mb-4 text-2xl font-bold text-gray-800">
         Drone Statistics
       </h1>
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between">
         <div className="">
           <p className="text-gray-400 text-sm">Status</p>
           <div className="flex gap-12 border rounded-2xl p-5">
@@ -130,6 +154,21 @@ const Stats = ({ droneData }) => {
             <p>Drones</p>
           </div>
         </div>
+      </div> */}
+      <div className="flex justify-center max-h-[400px]">
+        <PieChart width={400} height={400}>
+          <Pie
+            dataKey="value"
+            isAnimationActive={false}
+            data={pieChartData}
+            cx="50%"
+            cy="50%"
+            outerRadius={80}
+            fill="#8884d8"
+            label
+          />
+          <Tooltip />
+        </PieChart>
       </div>
       <div className="mt-5">
         <h2 className="text-gray-500 text-sm">Drone Models</h2>
