@@ -172,7 +172,7 @@ const Stats = ({ droneData, pieChartData }) => {
       </div>
       <div className="mt-5">
         <h2 className="text-gray-500 text-sm">Drone Models</h2>
-        {droneData.models.map((index, item) => (
+        {droneData.models.map((item, index) => (
           <Chip
             key={index}
             className="my-1 mr-1"
@@ -192,7 +192,7 @@ const ServiceStats = ({ droneData }) => {
         Drone Service Statistics
       </h1>
       <p className="text-gray-400 text-sm">Services</p>
-      {droneData.services.map((index, item) => (
+      {droneData.services.map((item, index) => (
         <Chip
           key={index}
           className="my-1 mr-1"
