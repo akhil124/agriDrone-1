@@ -23,7 +23,11 @@ const AddDrone = () => {
     </div>
   );
 };
-
+const getFormData = (object) =>
+  Object.keys(object).reduce((formData, key) => {
+    formData.append(key, object[key]);
+    return formData;
+  }, new FormData());
 const RegisterForm = () => {
   const {
     device_id,
@@ -39,11 +43,15 @@ const RegisterForm = () => {
     <div className="min-h-[80vh] flex justify-center items-center">
       <form
         onSubmit={handleSubmit(async (data) => {
-          const res = await axios.post(postUrl, {
-            ...data,
-            device_type: "drone",
-          });
-          console.log(res, "RESPONSE");
+          // const res = await axios.post(postUrl, {
+          //   ...data,
+          //   device_type: "drone",
+          // });
+          // console.log(res, "RESPONSE");
+          // router.push("/");
+          // console.log(data, "DATA");
+          const request = getFormData({ ...data, device_type: "drone" });
+          const res = await axios.post(postUrl, request);
           router.push("/");
         })}
       >

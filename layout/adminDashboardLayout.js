@@ -37,6 +37,11 @@ const Items = [
     label: "Add Drone",
     url: "/admin/addDrone",
   },
+  {
+    id: 4,
+    label: "Service",
+    url: "/admin/startService",
+  },
 ];
 export default function ClippedDrawer({ children }) {
   return (
