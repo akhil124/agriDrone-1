@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMultistepForm } from "../../../hooks/useMultiForm";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -32,11 +32,27 @@ const INITIAL_DATA = {
     duration: "",
     pilotID: "6373b63a7ff509ddf4469f90",
   },
+  lat: 0,
+  lng: 0,
 };
 
 function FarmerStepper({ session }) {
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
   // const { data: session, status } = useSession();
   // if (status === "loading") return <>Loading</>;
+  useEffect(() => {
+    if (session.user.email) {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_HOST}api/farmer?email=${session.user.email}`
+        )
+        .then((res) => {
+          setLat(res.data.message.farmInfo.location.lat);
+          setLng(res.data.message.farmInfo.location.lng);
+        });
+    }
+  }, [session]);
 
   const router = useRouter();
   const [data, setData] = useState(INITIAL_DATA);
@@ -90,6 +106,10 @@ function FarmerStepper({ session }) {
         farmType: data.farmType.split("_")[1],
         farmLand: data.farmLand.split("_")[0],
       },
+      location: {
+        lat: lat,
+        lng: lng,
+      },
     };
     const booking = await axios.post(
       `${process.env.NEXT_PUBLIC_HOST}api/pilot/booking`,
@@ -107,6 +127,7 @@ function FarmerStepper({ session }) {
         booking: updatedInfo,
       }
     );
+
     setIsLoading(false);
     router.push("/order/success");
   }

@@ -16,6 +16,10 @@ const bookingSchema = new Schema({
       endDate: String,
       duration: Number,
     },
+    location: {
+      lat: Number,
+      lng: Number,
+    },
   },
 });
 

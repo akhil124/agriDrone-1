@@ -1,15 +1,3 @@
-import React from "react";
-
-const Test = () => {
-  return (
-    <div>
-      <MyComponent lat={0} lng={0} />
-    </div>
-  );
-};
-
-export default Test;
-
 import {
   GoogleMap,
   useJsApiLoader,
@@ -18,15 +6,17 @@ import {
 } from "@react-google-maps/api";
 import AutoComplete from "react-google-autocomplete";
 import { useEffect, useState } from "react";
+import React from "react";
 
-function MyComponent({ lat, lng, updateFields }) {
+function MyComponent({ location, setPlan, plan, updateFields }) {
+  console.log(location, "LOC");
   const containerStyle = {
     width: "700px",
     height: "500px",
   };
   const [center, setCenter] = useState({
-    lat: 37,
-    lng: -122,
+    lat: location.lat,
+    lng: location.lng,
   });
 
   //   useEffect(() => {
@@ -70,7 +60,12 @@ function MyComponent({ lat, lng, updateFields }) {
     zIndex: 1,
   };
 
-  const [mapPath, setMapPath] = useState([]);
+  const [mapPath, setMapPath] = useState([
+    {
+      lat: location.lat,
+      lng: location.lng,
+    },
+  ]);
   useEffect(() => {
     console.log(mapPath, "Map path");
   }, [mapPath]);
@@ -83,9 +78,21 @@ function MyComponent({ lat, lng, updateFields }) {
         zoom={15}
         onLoad={onLoad}
         onUnmount={onUnmount}
-        onClick={(e) =>
-          setMapPath([...mapPath, { lat: e.latLng.lat(), lng: e.latLng.lng() }])
-        }
+        onClick={(e) => {
+          setMapPath([
+            ...mapPath,
+            { lat: e.latLng.lat(), lng: e.latLng.lng() },
+          ]);
+          setPlan([
+            ...plan,
+            {
+              altitude: 50,
+              latitude: e.latLng.lat(),
+              longitude: e.latLng.lng(),
+              type: "SimpleItem",
+            },
+          ]);
+        }}
       >
         {/* Child components, such as markers, info windows, etc. */}
         {/* <Autocomplete
@@ -115,6 +122,7 @@ function MyComponent({ lat, lng, updateFields }) {
         />
       </Autocomplete>
     <Marker position={position} /> */}
+        <Marker position={center} />
         <Polyline
           onLoad={onLoad1}
           path={mapPath}
@@ -127,3 +135,4 @@ function MyComponent({ lat, lng, updateFields }) {
     <></>
   );
 }
+export default MyComponent;
